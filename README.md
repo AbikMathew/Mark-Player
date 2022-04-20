@@ -1,6 +1,6 @@
 # mark_player
 
-A new Flutter project.
+Mark Player is a video player that can be used to play the videos in the user's phone's storage. 
 
 ## Getting Started
 
