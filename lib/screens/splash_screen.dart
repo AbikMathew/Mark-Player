@@ -1,7 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:mark_player/main.dart';
 import 'package:mark_player/screens/onBoardingScreen.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 //import 'FolderScreen.dart';
+import '../model/model.dart';
 import 'navbar.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,33 +18,64 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   bool permissionGranted = false;
+  List<VideoDetailsBox> fullDatabaseList = [];
+  List<Uint8List> thumblist = [];
+  List<String> pathList = [];
+
   @override
   initState() {
     super.initState();
     _getStoragePermission();
-    _navigateToHome();
   }
 
-  _navigateToHome() async {
+  _navigateToWhichScreen() {
+    if (prefs.getBool('isFirstTime') == true) {
+      print('ente ponnnedaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
+      fullDatabaseList = box.values.toList();
+
+      for (var i = 0; i < fullDatabaseList.length; i++) {
+        pathList.add(fullDatabaseList[i].videoFilePath);
+        thumblist.add(fullDatabaseList[i].thumbnailPath);
+      }
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CustomNavbar(
+              pathList: pathList,
+              fullDatabaseList: fullDatabaseList,
+              thumblist: thumblist),
+        ),
+      );
+    } else {
+      print('Ini ith nokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
+      _navigateToOnboardingScreen();
+    }
+  }
+
+  _navigateToOnboardingScreen() async {
     await Future.delayed(Duration(milliseconds: 1500), () {});
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => OnBoardingScreen()));
   }
-Future _getStoragePermission() async {
-  if (await Permission.storage.request().isGranted) {
-    setState(() {
-       permissionGranted = true;
-    });
-  } else if (await Permission.storage.request().isPermanentlyDenied) {
-    await openAppSettings();
-  } else if (await Permission.storage.request().isDenied) {
-    setState(() {
-       permissionGranted = false;
-    });
+
+  Future _getStoragePermission() async {
+    if (await Permission.storage.request().isGranted) {
+      setState(() {
+        permissionGranted = true;
+      });
+      _navigateToWhichScreen();
+    } else if (await Permission.storage.request().isPermanentlyDenied) {
+      await openAppSettings();
+    } else if (await Permission.storage.request().isDenied) {
+      setState(() {
+        permissionGranted = false;
+      });
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

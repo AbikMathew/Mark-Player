@@ -1,28 +1,38 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:mark_player/screens/FolderScreen.dart';
-import 'package:mark_player/screens/navbar.dart';
-
+import 'package:mark_player/main.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import '../function/searchFiles.dart';
+import '../model/model.dart';
+import 'navbar.dart';
 
 class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({ Key? key }) : super(key: key);
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-
-   @override
+  @override
   void initState() {
-   getFiles();
+    addBoolToSF();
+    getFiles().then((_) => thumbnailGetter());
     super.initState();
   }
 
+  // Variable declarations
+  List<Uint8List> thumblist = [];
+  List<String> pathList = [];
 
-  Future getFiles() async{
-     List<String> values = ['mp4', 'avi'];
-    SearchFilesInStorage.searchInStorage(
+  List<String> _pathList = [];
+  List<String> repeatedFolderNames = [];
+  List<String> folderNames = [];
+  List<VideoDetailsBox> fullDatabaseList = [];
+
+  Future getFiles() async {
+    List<String> values = ['mp4', 'avi', 'mov', 'mkv'];
+    await SearchFilesInStorage.searchInStorage(
       values,
       (List<String> data) {
         _pathList.clear();
@@ -40,25 +50,92 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       },
       (error) {},
     ); //TODO: implement initState
-
-
   }
 
-  // Variable declarations
-  List<String> _pathList = [];
-  List<String> repeatedFolderNames = [];
-  List<String> folderNames = [];
+  Future thumbnailGetter() async {
+    for (var i = 0; i < _pathList.length; i++) {
+      Uint8List? key = (await VideoThumbnail.thumbnailData(
+        video: _pathList[i],
+        imageFormat: ImageFormat.JPEG,
+        maxWidth: 128,
+        quality: 25,
+      ));
 
- _navigateToFolderScreen()  {
+      box.add(VideoDetailsBox(
+          videoFilePath: _pathList[i], thumbnailPath: key, fav: false));
+
+      fullDatabaseList = box.values.toList();
+
+      // DATABASE FUNCTIONS
+
+      //  boxVideos.put(fullDatabaseList[i].key, VideoDetailsBox(videoFilePath: 'abik', thumbnailPath: 'karthik', fav: true));
+      //  box.put(fullDatabaseList[i].key, VideoDetailsBox(videoFilePath: 'abik', thumbnailPath: 'karthik', fav: true));
+
+      //  boxVideos.delete(fullDatabaseList[i].key);
+      //  box.delete(fullDatabaseList[i].key);
+// I JUST TURNED THIS OFF
+      // setState(() {});
+    }
+
+    print('KittunundOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO');
+
+    putDbItemstoLists();
+  }
+
+  putDbItemstoLists() {
+    for (var i = 0; i < fullDatabaseList.length; i++) {
+      pathList.add(fullDatabaseList[i].videoFilePath);
+      thumblist.add(fullDatabaseList[i].thumbnailPath);
+    }
+    _navigateToFolderScreen();
+  }
+
+  _navigateToFolderScreen() {
     //Future.delayed(Duration(milliseconds: 1500), () {});
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => customNavbar(pathList: _pathList)));
+      context,
+      MaterialPageRoute(
+        builder: (context) => CustomNavbar(
+          pathList: pathList,
+          fullDatabaseList: fullDatabaseList,
+          thumblist: thumblist,
+        ),
+      ),
+    );
+  }
+
+  addBoolToSF() async {
+    await prefs.setBool('isFirstTime', true);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Center(child: FloatingActionButton(onPressed: _navigateToFolderScreen))),
+      body: SafeArea(
+        child: Center(
+          //child: FloatingActionButton(onPressed: _navigateToFolderScreen),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 60,
+                width: 60,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFD6B392)),
+                  strokeWidth: 4,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Fetching videos from the storage',
+                style: TextStyle(fontSize: 17, color: Color(0xFFD6B392)),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

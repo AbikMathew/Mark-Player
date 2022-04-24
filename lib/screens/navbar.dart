@@ -1,4 +1,8 @@
+import 'dart:ffi';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import '../model/model.dart';
 import '../screens/favorites_screen.dart';
 import '../screens/FolderScreen.dart';
 // import '../screens/movies_page.dart';
@@ -6,21 +10,30 @@ import '../screens/settings.dart';
 
 import 'allVideosScreen.dart';
 
-class customNavbar extends StatefulWidget {
-  customNavbar({Key? key, required this.pathList}) : super(key: key);
+class CustomNavbar extends StatefulWidget {
+  CustomNavbar({Key? key, required this.pathList, required this.fullDatabaseList,required this.thumblist}) : super(key: key);
 
   List<String> pathList=[];
+  List<Uint8List> thumblist = [];
+  List<VideoDetailsBox> fullDatabaseList =[];
+  
+
   @override
-  State<customNavbar> createState() => _customNavbarState();
+  State<CustomNavbar> createState() => _CustomNavbarState();
 }
 
-class _customNavbarState extends State<customNavbar> {
-  int CurrentIndex = 0;
+class _CustomNavbarState extends State<CustomNavbar> {
+
+Function? getFiles;
+
+int CurrentIndex = 0;
 int _selectedIndex = 0;
+var a;
+
 final PageController _pageController = PageController();
   final screens = [
-    homeScreen(pathList: []),
-    allVideosScreen(pathList: []),
+    homeScreen(pathList: [], fullDatabaseList: [], thumblist: [],),
+    allVideosScreen(pathList: [], thumblist: [],   ),
     favoritesScreen(),
    // watchLaterScreen(),
   
@@ -35,8 +48,8 @@ final PageController _pageController = PageController();
        body: PageView(
         controller: _pageController,
         children: <Widget>[
-          homeScreen(pathList: widget.pathList),
-          allVideosScreen(pathList: widget.pathList),
+          homeScreen(pathList: widget.pathList, fullDatabaseList: widget.fullDatabaseList, thumblist: widget.thumblist),
+          allVideosScreen(pathList: widget.pathList, thumblist: widget.thumblist),
           favoritesScreen(),
         //  watchLaterScreen(),
          

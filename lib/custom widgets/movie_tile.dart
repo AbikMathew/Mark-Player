@@ -22,91 +22,19 @@ class MovieTile extends StatefulWidget {
   List<String> pathList;
   String moviesTitle;
   var thumbnailPhoto;
-  //String? thumbnailPhoto;
-
-  // getThumbnail(String videoPath) async{
-  //   return thumbnailPhoto = await VideoThumbnail.thumbnailData(
-  //       video: videoPath,
-  //       imageFormat: ImageFormat.JPEG,
-  //       maxWidth:
-  //           128, // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
-  //       quality: 25) ;
-  // }
-
-//  getThumbnail(String videopath) async{
-//  final uint8list = await VideoCompress.getFileThumbnail(
-//   videopath,
-//   quality: 50, // default(100)
-//   position: -1 // default(-1)
-// );
-// }
 
   @override
   State<MovieTile> createState() => _MovieTileState();
 }
 
 class _MovieTileState extends State<MovieTile> {
-  // @override
-  // void initState() {
-  //   thumbnailGetter();
-  //   super.initState();
-  // }
-
-  // List thumbnailList = [];
-  // List<String> viewList = [];
-  // var thumbnailPhoto;
-
-  // Future thumbnailGetter() async{
-  //   for (var i = 0; i < widget.movieNamesList.length; i++) {
-  //     thumbnailPhoto = await getThumbnail(widget.movieNamesList[i]);
-  //     thumbnailList.add(thumbnailPhoto!);
-      
-  //   }
-   
-  // }
-
-  // getThumbnail(String videoPath)  {
-  //   thumbnailPhoto = ( VideoThumbnail.thumbnailData(
-  //       video: videoPath,
-  //       imageFormat: ImageFormat.JPEG,
-  //       maxWidth:
-  //           128, // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
-  //       quality: 25));
-
-  //   thumbnailList.add(thumbnailPhoto);
-  //   print(thumbnailList);
-  //   setState(() {});
-  // }
-
-
-
-  //   Future thumbnailGetter() async {
-  //   for (var i = 0; i < widget.pathList.length; i++) {
-  //    // print('${widget.pathList[i]}');
-  //     List<String> video = widget.pathList[i].split('/').toList();
-  //    // print(video);
-  //     if (video.contains(widget.moviesTitle)) {
-  //       String url = video.join('/');
-  //       // String name = video[video.length-1];
-
-  //       var key = (await VideoThumbnail.thumbnailData(
-  //         video: url,
-  //         imageFormat: ImageFormat.JPEG,
-  //         maxWidth: 128,
-  //         quality: 25,
-  //       ));
-  //       thumbnailList.add(key);
-  //       setState(() {});
-  //       viewList.add(url);
-  //     }
-  //   }
-  // }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 12),
       child: ListTile(
+        onLongPress: (){},
         onTap: () {
           Navigator.push(
               context,
