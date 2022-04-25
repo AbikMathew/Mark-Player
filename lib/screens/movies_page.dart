@@ -36,7 +36,7 @@ class _MoviesPageState extends State<MoviesPage> {
     fileInFolderLister();
 
     return Scaffold(
-      appBar: appBar(title: widget.moviesTitle),
+      appBar: appBar(title: widget.moviesTitle, visible: true, movieNamesList: moviesList),
       //  bottomNavigationBar: customNavbar(),
       body: ListView.builder(
           itemCount: moviesList.length,
@@ -55,28 +55,3 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 }
 
-
- // Future thumbnailGetter() async {
-  //   for (var i = 0; i < widget.pathList.length; i++) {
-  //     // print('${widget.pathList[i]}');
-  //     List<String> video = widget.pathList[i].split('/').toList();
-  //     // print(video);
-  //     if (video.contains(widget.moviesTitle)) {
-  //       String url = video.join('/');
-  //       // String name = video[video.length-1];
-
-  //       var key = (await VideoThumbnail.thumbnailData(
-  //         video: url,
-  //         imageFormat: ImageFormat.JPEG,
-  //         maxWidth: 128,
-  //         quality: 25,
-  //       ));
-  //       thumbnailList.add(key);
-  //   //    convertUint8ListToString(key);
-  //         box.add(VideoDetailsBox(videoFilePath: url, thumbnailPath: key, fav: false));
-
-  //       setState(() {});
-  //       viewList.add(url);   
-  //     }
-  //   }
-  // }

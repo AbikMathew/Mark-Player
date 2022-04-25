@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   better_player: ^0.0.81
+  collection: ^1.15.0
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter

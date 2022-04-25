@@ -34,7 +34,7 @@ final PageController _pageController = PageController();
   final screens = [
     homeScreen(pathList: [], fullDatabaseList: [], thumblist: [],),
     allVideosScreen(pathList: [], thumblist: [],   ),
-    favoritesScreen(),
+  //  favoritesScreen(),
    // watchLaterScreen(),
   
     settingsPage(),
@@ -50,7 +50,7 @@ final PageController _pageController = PageController();
         children: <Widget>[
           homeScreen(pathList: widget.pathList, fullDatabaseList: widget.fullDatabaseList, thumblist: widget.thumblist),
           allVideosScreen(pathList: widget.pathList, thumblist: widget.thumblist),
-          favoritesScreen(),
+       //   favoritesScreen(),
         //  watchLaterScreen(),
          
           settingsPage(),
@@ -78,8 +78,8 @@ final PageController _pageController = PageController();
                 icon: Icon(Icons.folder_outlined), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.local_movies_outlined), label: 'All Videos'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border), label: 'Fav'),
+            // BottomNavigationBarItem(
+            //     icon: Icon(Icons.favorite_border), label: 'Fav'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined), label: 'Settings'),
           ],

@@ -9,7 +9,7 @@ class settingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(title: 'Settings'),
+      appBar: appBar(title: 'Settings', visible: false,),
       body: ListView(
         children: [
           SettingsTile(settingsIcon: Icons.share, settingsText: 'Share'),

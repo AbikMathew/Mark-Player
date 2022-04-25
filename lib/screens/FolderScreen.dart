@@ -54,7 +54,7 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(title: 'Home'),
+      appBar: appBar(title: 'Home', visible: false),
       body: SafeArea(
         child: ListView.builder(
             itemCount: folderNames.length,

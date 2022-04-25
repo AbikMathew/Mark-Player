@@ -13,7 +13,7 @@ class favoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      appBar: appBar(title: 'Favorites'),
+      appBar: appBar(title: 'Favorites', visible: false),
       // body: ListView.builder(
       //   itemCount: movieNames.length,
       //   itemBuilder: (BuildContext, index){

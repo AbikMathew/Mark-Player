@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mark_player/main.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import '../function/searchFiles.dart';
+import '../global/globalFunction.dart';
 import '../model/model.dart';
 import 'navbar.dart';
 
@@ -22,8 +23,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   // Variable declarations
-  List<Uint8List> thumblist = [];
-  List<String> pathList = [];
+  //List<Uint8List> thumblist = [];
+   List<String> pathList = [];
 
   List<String> _pathList = [];
   List<String> repeatedFolderNames = [];

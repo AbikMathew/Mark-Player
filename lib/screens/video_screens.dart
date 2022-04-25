@@ -11,17 +11,11 @@ class VideoScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: appBar(title: (basenameWithoutExtension(videoFilePath))),
+      appBar: appBar(title: (basenameWithoutExtension(videoFilePath)), visible: false,),
       body: Center(
         child: AspectRatio(
         aspectRatio: 16 / 9,
         child: BetterPlayer.file(videoFilePath),
-        // child: BetterPlayer.network(
-        //   "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
-        //   betterPlayerConfiguration: BetterPlayerConfiguration(
-        //     aspectRatio: 16 / 9,
-        //   ),
-        // ),
       ),
       ),
     );
