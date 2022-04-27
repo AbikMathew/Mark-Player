@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class MyThemes {
   static final darkTheme = ThemeData(
-      
+    primarySwatch: Colors.grey,
+      //primarySwatch: MaterialColor(),
+      //buttonTheme: ,
       canvasColor: Color(0xFF2D3545),
       primaryColor: Color(0xFF212938),
       scaffoldBackgroundColor: Color(0xFF212938),
@@ -10,7 +12,8 @@ class MyThemes {
       appBarTheme: AppBarTheme(textTheme: TextTheme()),
       inputDecorationTheme: InputDecorationTheme(hintStyle: TextStyle(color: Colors.white) ),
       popupMenuTheme: PopupMenuThemeData(
-          color: Color(0xFFD6B392),
+       //   color: Color(0xFFD6B392),
+       color: Color(0xFF212938),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           textStyle: TextStyle(color: Colors.white)),

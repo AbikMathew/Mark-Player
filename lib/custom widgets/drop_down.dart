@@ -12,7 +12,7 @@ class DropDown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(dropDownIcon),
+        Icon(dropDownIcon, color: Color(0xFFD6B392),),
         SizedBox(width: 10,),
         Text(dropDownItem),
       ],

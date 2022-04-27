@@ -6,6 +6,8 @@ import 'package:mark_player/custom%20widgets/app_bar.dart';
 import 'package:mark_player/custom%20widgets/movie_tile.dart';
 import 'package:mark_player/global/globalFunction.dart';
 
+import '../main.dart';
+
 
 class allVideosScreen extends StatefulWidget {
   allVideosScreen({Key? key, required this.pathList, required this.thumblist})
@@ -32,9 +34,14 @@ class _allVideosScreenState extends State<allVideosScreen> {
 
   Future<void> _refresh() async{
     //return Future.delayed(Duration(seconds: 10));
-     getFiles(pathlist, repeatedFolderNames, folderNames).then((_) => null);
-
-
+    //  getFiles(pathlist, repeatedFolderNames, folderNames).then((_) => null);
+    // var tab = boxP.values.toList();
+    //  fkut(){
+    //  for (var i = 0; i < tab.length; i++) {
+    //    print(i);
+    //    print('\n\n\n\n\n\n madth bro ${tab[i].plVideoPath.toList().toString()}');
+    //  }}
+    //     fkut();
   }
 
   shouldChangePathList(){

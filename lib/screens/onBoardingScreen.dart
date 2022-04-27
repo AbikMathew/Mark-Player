@@ -18,7 +18,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     addBoolToSF();
-    getFiles().then((_) => thumbnailGetter());
+    getFiles();
+    //.then((_) => thumbnailGetter());
     super.initState();
   }
 
@@ -47,6 +48,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             folderNames = repeatedFolderNames.toSet().toList();
             folderNames.remove('0');
           }
+          thumbnailGetter();
         });
       },
       (error) {},
@@ -65,7 +67,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       box.add(VideoDetailsBox(
           videoFilePath: _pathList[i], thumbnailPath: key, fav: false));
 
+     // box.putAt(index, value)  
+
       fullDatabaseList = box.values.toList();
+      //box.values.contains('a');
 
       // DATABASE FUNCTIONS
 

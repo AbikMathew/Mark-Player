@@ -1,13 +1,12 @@
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import '../model/model.dart';
-import '../screens/favorites_screen.dart';
 import '../screens/FolderScreen.dart';
 // import '../screens/movies_page.dart';
 import '../screens/settings.dart';
 
+import 'Main Screens/Playlist.dart';
 import 'allVideosScreen.dart';
 
 class CustomNavbar extends StatefulWidget {
@@ -31,9 +30,11 @@ int _selectedIndex = 0;
 var a;
 
 final PageController _pageController = PageController();
+
   final screens = [
     homeScreen(pathList: [], fullDatabaseList: [], thumblist: [],),
     allVideosScreen(pathList: [], thumblist: [],   ),
+    PlaylistScreen(),
   //  favoritesScreen(),
    // watchLaterScreen(),
   
@@ -50,6 +51,7 @@ final PageController _pageController = PageController();
         children: <Widget>[
           homeScreen(pathList: widget.pathList, fullDatabaseList: widget.fullDatabaseList, thumblist: widget.thumblist),
           allVideosScreen(pathList: widget.pathList, thumblist: widget.thumblist),
+          PlaylistScreen(),
        //   favoritesScreen(),
         //  watchLaterScreen(),
          
@@ -78,8 +80,8 @@ final PageController _pageController = PageController();
                 icon: Icon(Icons.folder_outlined), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.local_movies_outlined), label: 'All Videos'),
-            // BottomNavigationBarItem(
-            //     icon: Icon(Icons.favorite_border), label: 'Fav'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.playlist_add_outlined), label: 'Playlist'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined), label: 'Settings'),
           ],

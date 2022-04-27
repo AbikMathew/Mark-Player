@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mark_player/custom%20widgets/drop_down.dart';
 import 'package:mark_player/screens/settings.dart';
 
+import '../main.dart';
 import '../screens/movies_page.dart';
 
 class folderTile extends StatelessWidget {
@@ -23,6 +24,7 @@ class folderTile extends StatelessWidget {
   int index;
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 12),
       child: ListTile(

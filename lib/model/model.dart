@@ -16,3 +16,40 @@ class VideoDetailsBox extends HiveObject {
   bool fav;
 
 }
+
+
+@HiveType(typeId: 3)
+class PlaylistBox{
+  
+  @HiveField(0)
+  String playlistName;
+
+  @HiveField(1)
+  List<String> plVideoPath;
+
+PlaylistBox({required this.playlistName, required this.plVideoPath});
+}
+
+@HiveType(typeId: 4)
+class IndividualPlaylistBox {
+  
+  IndividualPlaylistBox({required this.id, required this.plAddedVideoPath, required this.plAddedThumbnail});
+
+  @HiveField(0)
+  String id;
+
+  @HiveField(1)
+  String plAddedVideoPath;
+
+  @HiveField(2)
+  var plAddedThumbnail;
+}
+
+
+// @HiveType(typeId: 2)
+// class PlaylistNameBox {
+//   @HiveField(0)
+//   final String playListName;
+
+//   PlaylistNameBox({required this.playListName});
+// }
