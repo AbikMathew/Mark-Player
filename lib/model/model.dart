@@ -19,7 +19,7 @@ class VideoDetailsBox extends HiveObject {
 
 
 @HiveType(typeId: 3)
-class PlaylistBox{
+class PlaylistBox extends HiveObject{
   
   @HiveField(0)
   String playlistName;
@@ -31,7 +31,7 @@ PlaylistBox({required this.playlistName, required this.plVideoPath});
 }
 
 @HiveType(typeId: 4)
-class IndividualPlaylistBox {
+class IndividualPlaylistBox extends HiveObject{
   
   IndividualPlaylistBox({required this.id, required this.plAddedVideoPath, required this.plAddedThumbnail});
 

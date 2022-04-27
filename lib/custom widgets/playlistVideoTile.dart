@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,26 +12,25 @@ import 'package:mark_player/screens/video_screens.dart';
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 
-
 class PlaylistVideoTile extends StatefulWidget {
   PlaylistVideoTile(
       {Key? key,
-      
       required this.moviePath,
       required this.thumbnailPhoto,
       required this.index})
       : super(key: key);
 
-
   String moviePath;
-  var thumbnailPhoto;
+  Uint8List thumbnailPhoto;
   int index;
+
+  //
   @override
   State<PlaylistVideoTile> createState() => _PlaylistVideoTileState();
 }
 
 class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
-
+  // var key = Hive.box<IndividualPlaylistBox>('boxPindvidual');
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,15 +45,10 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
                         videoFilePath: widget.moviePath,
                       )));
         },
-
         shape: Theme.of(context).listTileTheme.shape,
         tileColor: Theme.of(context).listTileTheme.tileColor,
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          //  child: Image.file(File(widget.getThumbnail(widget.movieNamesList[widget.index]))),
-
-          //  child: Image.memory(thumbnailList[widget.index])),
-
           child: Container(
             width: 70,
             decoration: BoxDecoration(
@@ -68,7 +64,6 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
             ),
           ),
         ),
-
         trailing: PopupMenuButton(
           itemBuilder: (BuildContext context) {
             return [
@@ -76,9 +71,13 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
                 child: DropDown(
                     dropDownIcon: Icons.remove_circle,
                     dropDownItem: 'Remove from favourites'),
-                    onTap: (){
-                      removeFromFav(widget.index);
-                    },
+                onTap: () {
+                  removeFromFav(widget.moviePath);
+                  setState(() {
+                    
+                  });
+                  // Navigator.pop(context);
+                },
               ),
               // PopupMenuItem(
               //     onTap: () {
@@ -89,8 +88,8 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
               //         dropDownIcon: Icons.playlist_add,
               //         dropDownItem: 'Add to playlist')),
               PopupMenuItem(
-                 onTap: ()async{
-                     await Share.shareFiles([widget.moviePath]);
+                  onTap: () async {
+                    await Share.shareFiles([widget.moviePath]);
                   },
                   child: DropDown(
                       dropDownIcon: Icons.share, dropDownItem: 'Share'))
@@ -107,11 +106,12 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
       ),
     );
   }
-  removeFromFav(int key){
+
+  removeFromFav(String videoPath) {
     //boxPindvidual.values;
-   boxPindvidual.deleteAt(key);
-    
-    
+    final removeVideo = boxPindvidual.values
+        .firstWhere((element) => element.plAddedVideoPath == videoPath);
+    removeVideo.delete();
   }
 }
 

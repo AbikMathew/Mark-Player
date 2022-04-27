@@ -16,13 +16,13 @@ Future<void> main() async {
 
   await Hive.initFlutter();
   Hive.registerAdapter(VideoDetailsBoxAdapter());
- // Hive.registerAdapter(PlaylistNameBoxAdapter());
   Hive.registerAdapter(PlaylistBoxAdapter());
   Hive.registerAdapter(IndividualPlaylistBoxAdapter());
+
   box = await Hive.openBox<VideoDetailsBox>('MP_Box');
   boxP = await Hive.openBox<PlaylistBox>('MP_BoxP');
   boxPindvidual = await Hive.openBox<IndividualPlaylistBox>('MP_BoxP_indv');
- // playlistBox = await Hive.openBox('playlistBox');
+
 
   prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
