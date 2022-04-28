@@ -73,9 +73,9 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
                     dropDownItem: 'Remove from favourites'),
                 onTap: () {
                   removeFromFav(widget.moviePath);
-                  setState(() {
+                  // setState(() {
                     
-                  });
+                  // });
                   // Navigator.pop(context);
                 },
               ),

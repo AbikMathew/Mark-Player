@@ -26,6 +26,29 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future openDialog1(String playlistName) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              shape: Theme.of(context).listTileTheme.shape,
+              titleTextStyle: TextStyle(color: Color(0xFFD6B392)),
+              backgroundColor: Color(0xFF2D3545),
+              title: Text('Delete Playlist'),
+              content: Text(
+                'Do you want to delete the playlist named $playlistName?',
+                style: TextStyle(color: Colors.white54),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child:
+                        Text('No', style: TextStyle(color: Color(0xFFD6B392)))),
+                TextButton(
+                    onPressed: () => removePlaylist(playlistName, context),
+                    child: Text('Yes',
+                        style: TextStyle(color: Color(0xFFD6B392)))),
+              ],
+            ));
+
     Future openDialog() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -45,41 +68,37 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               ),
               actions: [
                 TextButton(
-                    onPressed: () async{
-                    //  print(playlistNameToHive);
+                    onPressed: () async {
+                      //  print(playlistNameToHive);
 
                       if (playlistNameToHive.isNotEmpty) {
-                                              // await Hive.openBox("MP_BoxP");
+                        // await Hive.openBox("MP_BoxP");
 
-                                              if (!nameCheck(playlistNameToHive)) {
-                                                await boxP.add(PlaylistBox(playlistName: playlistNameToHive, plVideoPath: []));
-                                                
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(const SnackBar(
-                                                        duration: Duration(
-                                                            seconds: 1),
-                                                        behavior:
-                                                            SnackBarBehavior
-                                                                .floating,
-                                                        margin: EdgeInsets.only(
-                                                            bottom: 70.0),
-                                                        content: Text(
-                                                            "Already in list")));
-                                              }
-                                              List<PlaylistBox> valuesIn = boxP.values.toList();
-                                             for (var i = 0; i < valuesIn.length; i++) {
-                                              // print('kittuuuuudaaaaaa');
-                                              // print(valuesIn[i].playlistName); 
-                                             }
-                                              
-                                              print('Adding to play list');
-                                             // playlistNameToHive.clear();
-                                              Navigator.of(context).pop();
-                                            } else {
-                                              // await boxPlaylist.clear();
-                                              Navigator.of(context).pop();
-                                            }
+                        if (!nameCheck(playlistNameToHive)) {
+                          await boxP.add(PlaylistBox(
+                              playlistName: playlistNameToHive,
+                              plVideoPath: []));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(bottom: 70.0),
+                                  content: Text("Already in list")));
+                        }
+                        List<PlaylistBox> valuesIn = boxP.values.toList();
+                        for (var i = 0; i < valuesIn.length; i++) {
+                          // print('kittuuuuudaaaaaa');
+                          // print(valuesIn[i].playlistName);
+                        }
+
+                        print('Adding to play list');
+                        // playlistNameToHive.clear();
+                        Navigator.of(context).pop();
+                      } else {
+                        // await boxPlaylist.clear();
+                        Navigator.of(context).pop();
+                      }
                     },
                     child: Text(
                       'Create',
@@ -101,8 +120,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 //   itemCount: ,
                 //playlistNamesList.length,
                 itemBuilder: ((context, index) {
-                  List<String> pListMoviePath = _playlistValues[index].plVideoPath;
-                  
+                  List<String> pListMoviePath =
+                      _playlistValues[index].plVideoPath;
+
                   // print('Hereee');
                   // print(pListMoviePath.toString());
 
@@ -113,24 +133,24 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                         ))
                       //Text('Onnum illa'))
                       : GestureDetector(
+                          onLongPress: () =>
+                              openDialog1(_playlistValues[index].playlistName),
                           onTap: () {
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (ctx) => InnerPlaylist(
-                                    plMoviePath: pListMoviePath,
-                                    plName: _playlistValues[index].playlistName,
-                                    index: index
-                                  ),
+                                      plMoviePath: pListMoviePath,
+                                      plName:
+                                          _playlistValues[index].playlistName,
+                                      index: index),
                                 ));
                           },
                           child: PlaylistTile(
                               playlistName: _playlistValues[index].playlistName,
-                              pListMoviePath: pListMoviePath),
-                        );
-                  // return PlaylistTile(
-                  //     playlistName: _playlistValues[index].playlistName, pListMoviePath: pListMoviePath,);
-                  //     return PlaylistTile(playlistName: playlistNamesList[index].playListName);
+                              pListMoviePath: pListMoviePath,
+                              index: index));
                 }));
           },
         ),
@@ -148,47 +168,23 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     );
   }
 
-  // addNametoDB(String playlistName) {
-  //   List<String> playlistNames = [];
-
-  //   for (var i = 0; i < playlistBoxValues.length; i++) {
-  //     playlistNames.add(playlistBoxValues[i].playlistName);
-  //   }
-
-  //   if (playlistName != '') {
-  //     if (playlistNames.isEmpty) {
-  //       print('Innengaaanum nadakkuvooo');
-  //       boxP.add(PlaylistBox(playlistName: playlistName, plVideoPath: []));
-  //       Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (con) => PlaylistScreen()));
-  //       setState(() {});
-  //     } else {
-  //       for (var i = 0; i < playlistNames.length; i++) {
-  //         if (playlistNames[i] == playlistName) {
-  //           print('Vere vello panikkum po');
-  //         } else {
-  //           print('Kittiyooooooooooooooooooooooooooooo11');
-  //           boxP.add(PlaylistBox(playlistName: playlistName, plVideoPath: []));
-  //           Navigator.pushReplacement(
-  //               context, MaterialPageRoute(builder: (con) => PlaylistScreen()));
-  //           break;
-  //           setState(() {});
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  removePlaylist(String playlistName, BuildContext context) {
+    //boxPindvidual.values;
+    final removeVideo = boxP.values
+        .firstWhere((element) => element.playlistName == playlistName);
+    removeVideo.delete();
+    Navigator.pop(context);
+  }
 }
 
-
-  bool nameCheck(String text) {
-    List<PlaylistBox> _list = Hive.box<PlaylistBox>('MP_BoxP').values.toList();
-    bool check = false;
-    for (int i = 0; i < _list.length; i++) {
-      if (_list[i].playlistName.trim() == text.trim()) {
-        check = true;
-        break;
-      }
+bool nameCheck(String text) {
+  List<PlaylistBox> _list = Hive.box<PlaylistBox>('MP_BoxP').values.toList();
+  bool check = false;
+  for (int i = 0; i < _list.length; i++) {
+    if (_list[i].playlistName.trim() == text.trim()) {
+      check = true;
+      break;
     }
-    return check;
   }
+  return check;
+}

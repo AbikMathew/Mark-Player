@@ -142,7 +142,7 @@ class _MovieTileState extends State<MovieTile> {
                                   //  _playListNames[index].playList.add(widget.pathList[widget.index]);
                               //    print('path ${widget.pathList[widget.index]} Addeddd to ${_playListValues[index].plVideoPath.toString()}');
                                   Navigator.of(context).pop();},
-                                  child: PlaylistTile(playlistName: _playListValues[index].playlistName, pListMoviePath: []),
+                                  child: PlaylistTile(playlistName: _playListValues[index].playlistName, pListMoviePath: [], index: index,),
                                   
                                   );
                     //  return PlaylistTile(playlistName: '',);
