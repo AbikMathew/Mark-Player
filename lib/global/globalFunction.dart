@@ -103,10 +103,9 @@ class CustomSearchDelegate extends SearchDelegate {
 
 
 
-Future getFiles(List<String> _pathList, List<String> repeatedFolderNames,
-    List<String> folderNames) async {
+Future getFiles(List<String> _pathList, List<String> repeatedFolderNames,List<String> folderNames) async {
   List<String> values = ['mp4', 'avi', 'mov', 'mkv'];
-  await SearchFilesInStorage.searchInStorage(
+   SearchFilesInStorage.searchInStorage(
     values,
     (List<String> data) {
       _pathList.clear();
@@ -122,7 +121,7 @@ Future getFiles(List<String> _pathList, List<String> repeatedFolderNames,
         }
       }
 
-      ;
+      
       pathAdderFolderCreator();
     },
     (error) {},
@@ -138,8 +137,7 @@ Future thumbnailGetter(List<String> pathList) async {
       quality: 25,
     ));
 
-    box.add(VideoDetailsBox(
-        videoFilePath: pathList[i], thumbnailPath: key, fav: false));
+    box.add(VideoDetailsBox(videoFilePath: pathList[i], thumbnailPath: key, fav: false));
 
     List<VideoDetailsBox> fullDatabaseList = [];
     fullDatabaseList = box.values.toList();

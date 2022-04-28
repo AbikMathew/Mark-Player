@@ -64,8 +64,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         quality: 25,
       ));
 
-      box.add(VideoDetailsBox(
-          videoFilePath: _pathList[i], thumbnailPath: key, fav: false));
+      box.add(VideoDetailsBox(videoFilePath: _pathList[i], thumbnailPath: key, fav: false));
 
      // box.putAt(index, value)  
 
@@ -135,7 +134,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 height: 20,
               ),
               Text(
-                'Fetching videos from the storage',
+                'Fetching videos from the storage\n\t\tPlease wait',
                 style: TextStyle(fontSize: 17, color: Color(0xFFD6B392)),
               )
             ],

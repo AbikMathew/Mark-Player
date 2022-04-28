@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:mark_player/global/globalFunction.dart';
 import 'package:mark_player/screens/FolderScreen.dart';
 import 'package:mark_player/screens/movies_page.dart';
 
@@ -23,15 +24,19 @@ class SettingsTile extends StatelessWidget {
           Icons.arrow_forward,
           color: Theme.of(context).listTileTheme.textColor,
         ),
-        onTap: whichFunctionOnTap(settingsIcon, context),
-      ),
+        onTap: tryOne,
+      )
     );
   }
-  whichFunctionOnTap(IconData whichIcon, BuildContext ctx){
+  Function? whichFunctionOnTap(BuildContext ctx ,IconData whichIcon ){
     
     if (whichIcon == Icons.info) {
       print('About enkilum kittvo');
       showAboutDialog(context: ctx);
     }
+  }
+
+  tryOne(){
+    getFiles([], [], []);
   }
 }
