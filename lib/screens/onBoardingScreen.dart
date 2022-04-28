@@ -131,10 +131,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 45 ,
               ),
               Text(
-                'Fetching videos from the storage\n\t\tPlease wait',
+                'Fetching videos from the storage\n\t\t\t\t\t\t\tPlease wait...',
                 style: TextStyle(fontSize: 17, color: Color(0xFFD6B392)),
               )
             ],
