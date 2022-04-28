@@ -115,29 +115,35 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          //child: FloatingActionButton(onPressed: _navigateToFolderScreen),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 60,
-                width: 60,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFD6B392)),
-                  strokeWidth: 4,
+    return WillPopScope(
+      onWillPop: () async{
+        print('back button pressed');
+        return false;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Center(
+            //child: FloatingActionButton(onPressed: _navigateToFolderScreen),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFD6B392)),
+                    strokeWidth: 4,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 45 ,
-              ),
-              Text(
-                'Fetching videos from the storage\n\t\t\t\t\t\t\tPlease wait...',
-                style: TextStyle(fontSize: 17, color: Color(0xFFD6B392)),
-              )
-            ],
+                SizedBox(
+                  height: 45 ,
+                ),
+                Text(
+                  'Fetching videos from the storage\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPlease wait...',
+                  style: TextStyle(fontSize: 17, color: Color(0xFFD6B392)),
+                )
+              ],
+            ),
           ),
         ),
       ),
