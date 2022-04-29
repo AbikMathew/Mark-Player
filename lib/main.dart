@@ -6,7 +6,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model/model.dart';
 import 'provider/theme_provider.dart';
-import 'screens/spash0.dart';
 
 late Box<VideoDetailsBox> box;
 late Box<PlaylistBox> boxP;
@@ -26,20 +25,20 @@ Future<void> main() async {
   boxPindvidual = await Hive.openBox<IndividualPlaylistBox>('MP_BoxP_indv');
 
   requestPermission();
-  
+
   prefs = await SharedPreferences.getInstance();
-  
+
   runApp(MyApp());
 }
- requestPermission() async {
+
+requestPermission() async {
   var requestStatus = await Permission.storage.status;
   if (requestStatus.isDenied) {
     await Permission.storage.request();
-    // if(requestStatus.isGranted){
-      
     // }
   }
 }
+
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
@@ -47,16 +46,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Mark Player',
-        themeMode: ThemeMode.system,
-        theme: MyThemes.darkTheme,
-        darkTheme: MyThemes.darkTheme,
-       home: FristSplash(),
-       // home: SplashScreen()
-        // screens[index1],
-        );
+      debugShowCheckedModeBanner: false,
+      title: 'Mark Player',
+      themeMode: ThemeMode.system,
+      theme: MyThemes.darkTheme,
+      darkTheme: MyThemes.darkTheme,
+      home: SplashScreen()
+    );
   }
 }
-
-

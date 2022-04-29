@@ -1,75 +1,90 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:mark_player/main.dart';
 import '../model/model.dart';
 import '../screens/FolderScreen.dart';
-// import '../screens/movies_page.dart';
 import '../screens/settings.dart';
-
 import 'Main Screens/Playlist.dart';
 import 'allVideosScreen.dart';
 
 class CustomNavbar extends StatefulWidget {
-  CustomNavbar({Key? key, required this.pathList, required this.fullDatabaseList,required this.thumblist}) : super(key: key);
+  CustomNavbar(
+      {Key? key,
+      required this.pathList,
+      required this.fullDatabaseList,
+      required this.thumblist})
+      : super(key: key);
 
-  List<String> pathList=[];
+  List<String> pathList = [];
   List<Uint8List> thumblist = [];
-  List<VideoDetailsBox> fullDatabaseList =[];
-  
+  List<VideoDetailsBox> fullDatabaseList = [];
 
   @override
   State<CustomNavbar> createState() => _CustomNavbarState();
 }
 
 class _CustomNavbarState extends State<CustomNavbar> {
+  @override
+  initState() {
+    print('Checking for the app is being done ');
+    valueSetter();
+    super.initState();
+  }
 
-Function? getFiles;
+  valueSetter() {
+    widget.fullDatabaseList = box.values.toList();
 
-int CurrentIndex = 0;
-int _selectedIndex = 0;
-var a;
+    for (var i = 0; i < widget.fullDatabaseList.length; i++) {
+      widget.pathList.add(widget.fullDatabaseList[i].videoFilePath);
+      widget.thumblist.add(widget.fullDatabaseList[i].thumbnailPath);
+    }
+  }
 
-final PageController _pageController = PageController();
+
+  int CurrentIndex = 0;
+  int _selectedIndex = 0;
+
+  final PageController _pageController = PageController();
 
   final screens = [
     homeScreen(pathList: [], fullDatabaseList: [], thumblist: [],),
-    allVideosScreen(pathList: [], thumblist: [],   ),
+    allVideosScreen(pathList: [], thumblist: [], ),
     PlaylistScreen(),
-  //  favoritesScreen(),
-   // watchLaterScreen(),
-  
+    //  favoritesScreen(),
+    // watchLaterScreen(),
     settingsPage(),
-   // MoviesPage()
+    // MoviesPage()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     //   body: screens[CurrentIndex],
-       body: PageView(
-        controller: _pageController,
-        children: <Widget>[
-          homeScreen(pathList: widget.pathList, fullDatabaseList: widget.fullDatabaseList, thumblist: widget.thumblist),
-          allVideosScreen(pathList: widget.pathList, thumblist: widget.thumblist),
-          PlaylistScreen(),
-       //   favoritesScreen(),
-        //  watchLaterScreen(),
-         
-          settingsPage(),
-   // MoviesPage()
-  
-        ],
-        onPageChanged: (page) {
-          setState(() {
-            _selectedIndex = page;
-          });
-        },
-    ),
-       
-       
+        //   body: screens[CurrentIndex],
+        body: PageView(
+          controller: _pageController,
+          children: <Widget>[
+            homeScreen(
+                pathList: widget.pathList,
+                fullDatabaseList: widget.fullDatabaseList,
+                thumblist: widget.thumblist),
+            allVideosScreen(
+                pathList: widget.pathList, thumblist: widget.thumblist),
+            PlaylistScreen(),
+            //   favoritesScreen(),
+            //  watchLaterScreen(),
+
+            settingsPage(),
+            // MoviesPage()
+          ],
+          onPageChanged: (page) {
+            setState(() {
+              _selectedIndex = page;
+            });
+          },
+        ),
         bottomNavigationBar: BottomNavigationBar(
           enableFeedback: true,
-         // onTap: (index) => setState(() => _selectedIndex = index),
+          // onTap: (index) => setState(() => _selectedIndex = index),
           onTap: _onTappedBar,
           currentIndex: _selectedIndex,
           unselectedItemColor: Color.fromARGB(255, 141, 133, 126),
@@ -87,12 +102,11 @@ final PageController _pageController = PageController();
           ],
         ));
   }
+
   void _onTappedBar(int value) {
-setState(() {
-  _selectedIndex = value;
-});
-_pageController.jumpToPage(value);
+    setState(() {
+      _selectedIndex = value;
+    });
+    _pageController.jumpToPage(value);
+  }
 }
-}
-
-

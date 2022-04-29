@@ -18,61 +18,108 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool permissionGranted = false;
+
   List<VideoDetailsBox> fullDatabaseList = [];
   List<Uint8List> thumblist = [];
   List<String> pathList = [];
-  var permissionStat;
 
-  @override
-  initState() {
-    super.initState();
-    //  requestPermission().then((_) =>
-    _navigateToWhichScreen();
-  }
 
   _navigateToWhichScreen() {
     if (prefs.getBool('isFirstTime') == false) {
-      fullDatabaseList = box.values.toList();
-
-      for (var i = 0; i < fullDatabaseList.length; i++) {
-        pathList.add(fullDatabaseList[i].videoFilePath);
-        thumblist.add(fullDatabaseList[i].thumbnailPath);
-      }
-
-      Navigator.pushReplacement(context, MaterialPageRoute( builder: (context) => CustomNavbar(
-              pathList: pathList,
-              fullDatabaseList: fullDatabaseList,
-              thumblist: thumblist),
-        ),
-      );
+      _navigateToFolderScreen();
     } else {
       _navigateToOnboardingScreen();
     }
   }
 
   _navigateToOnboardingScreen() async {
+    await Future.delayed(Duration(milliseconds: 10500), () {});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OnBoardingScreen()));
+  }
+
+  _navigateToFolderScreen() async {
     await Future.delayed(Duration(milliseconds: 1500), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => OnBoardingScreen()));
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomNavbar(
+              pathList: [],
+              fullDatabaseList: [],
+              thumblist: [])));
   }
 
-  Future requestPermission() async {
-    var requestStatus = await Permission.storage.status;
+ 
+  @override
+  Widget build(BuildContext context) {
 
-    if (requestStatus.isDenied) {
-      permissionStat = Permission.storage.request();
-      print('Completed requesting ketooooooooooooooo');
+     _navigateToWhichScreen();
+    
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                 const Icon(Icons.circle_outlined, size: 100),
+                 const Positioned(
+                      top: 16,
+                      right: 14,
+                      child:  Icon(Icons.play_arrow, size: 70))
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Mark ',
+                      style: TextStyle(
+                          color: Theme.of(context).listTileTheme.textColor,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)),
+                  Text('Player',
+                      style: TextStyle(
+                          color: Theme.of(context).iconTheme.color,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-      // if(key.isGranted){
-      //    _navigateToWhichScreen();
+    // fullDatabaseList = box.values.toList();
+
+      // for (var i = 0; i < fullDatabaseList.length; i++) {
+      //   pathList.add(fullDatabaseList[i].videoFilePath);
+      //   thumblist.add(fullDatabaseList[i].thumbnailPath);
       // }
-      // requestPermission();
-    }
-    // if (requestStatus.isGranted) {
-    //   _navigateToWhichScreen();
-    // }
-  }
+
+      // Navigator.pushReplacement(context, MaterialPageRoute( builder: (context) => CustomNavbar(
+      //         pathList: [],
+      //         fullDatabaseList: [],
+      //         thumblist: []),
+      //   ),
+      // );
+
+ // Future requestPermission() async {
+  //   var requestStatus = await Permission.storage.status;
+
+  //   if (requestStatus.isDenied) {
+  //     permissionStat = Permission.storage.request();
+  //     print('Completed requesting ketooooooooooooooo');
+
+  //     // if(key.isGranted){
+  //     //    _navigateToWhichScreen();
+  //     // }
+  //     // requestPermission();
+  //   }
+  //   // if (requestStatus.isGranted) {
+  //   //   _navigateToWhichScreen();
+  //   // }
+  // }
   // Future _getStoragePermission() async {
   //   if (await Permission.storage.request().isGranted) {
   //     setState(() {
@@ -104,45 +151,3 @@ class _SplashScreenState extends State<SplashScreen> {
 // } else if (status == PermissionStatus.permanentlyDenied) {
 //   print('Take the user to the settings page.');
 // }}
-
-  @override
-  Widget build(BuildContext context) {
-    // requestPermission();
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                children: [
-                  Icon(Icons.circle_outlined, size: 100),
-                  Positioned(
-                      top: 16,
-                      right: 14,
-                      child: Icon(Icons.play_arrow, size: 70))
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Mark ',
-                      style: TextStyle(
-                          color: Theme.of(context).listTileTheme.textColor,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold)),
-                  Text('Player',
-                      style: TextStyle(
-                          color: Theme.of(context).iconTheme.color,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold)),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

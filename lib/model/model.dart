@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-
 part 'model.g.dart';
 
 @HiveType(typeId: 1)
@@ -14,25 +13,23 @@ class VideoDetailsBox extends HiveObject {
 
   @HiveField(2)
   bool fav;
-
 }
 
 
 @HiveType(typeId: 3)
 class PlaylistBox extends HiveObject{
-  
+  PlaylistBox({required this.playlistName, required this.plVideoPath});
+
   @HiveField(0)
   String playlistName;
 
   @HiveField(1)
   List<String> plVideoPath;
-
-PlaylistBox({required this.playlistName, required this.plVideoPath});
 }
+
 
 @HiveType(typeId: 4)
 class IndividualPlaylistBox extends HiveObject{
-  
   IndividualPlaylistBox({required this.id, required this.plAddedVideoPath, required this.plAddedThumbnail});
 
   @HiveField(0)
