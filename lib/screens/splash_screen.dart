@@ -22,17 +22,17 @@ class _SplashScreenState extends State<SplashScreen> {
   List<VideoDetailsBox> fullDatabaseList = [];
   List<Uint8List> thumblist = [];
   List<String> pathList = [];
+  var permissionStat;
 
   @override
   initState() {
     super.initState();
-    _getStoragePermission();
+    //  requestPermission().then((_) =>
+    _navigateToWhichScreen();
   }
 
   _navigateToWhichScreen() {
-    if (prefs.getBool('isFirstTime') == true) {
-      print('ente ponnnedaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-
+    if (prefs.getBool('isFirstTime') == false) {
       fullDatabaseList = box.values.toList();
 
       for (var i = 0; i < fullDatabaseList.length; i++) {
@@ -40,17 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
         thumblist.add(fullDatabaseList[i].thumbnailPath);
       }
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CustomNavbar(
+      Navigator.pushReplacement(context, MaterialPageRoute( builder: (context) => CustomNavbar(
               pathList: pathList,
               fullDatabaseList: fullDatabaseList,
               thumblist: thumblist),
         ),
       );
     } else {
-      print('Ini ith nokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
       _navigateToOnboardingScreen();
     }
   }
@@ -61,23 +57,57 @@ class _SplashScreenState extends State<SplashScreen> {
         context, MaterialPageRoute(builder: (context) => OnBoardingScreen()));
   }
 
-  Future _getStoragePermission() async {
-    if (await Permission.storage.request().isGranted) {
-      setState(() {
-        permissionGranted = true;
-      });
-      _navigateToWhichScreen();
-    } else if (await Permission.storage.request().isPermanentlyDenied) {
-      await openAppSettings();
-    } else if (await Permission.storage.request().isDenied) {
-      setState(() {
-        permissionGranted = false;
-      });
+  Future requestPermission() async {
+    var requestStatus = await Permission.storage.status;
+
+    if (requestStatus.isDenied) {
+      permissionStat = Permission.storage.request();
+      print('Completed requesting ketooooooooooooooo');
+
+      // if(key.isGranted){
+      //    _navigateToWhichScreen();
+      // }
+      // requestPermission();
     }
+    // if (requestStatus.isGranted) {
+    //   _navigateToWhichScreen();
+    // }
   }
+  // Future _getStoragePermission() async {
+  //   if (await Permission.storage.request().isGranted) {
+  //     setState(() {
+  //       permissionGranted = true;
+  //     });
+  //     _navigateToWhichScreen();
+  //   }
+  //   else if (await Permission.storage.request().isPermanentlyDenied) {
+  //     await openAppSettings();
+  //   }
+  //   else if (await Permission.storage.request().isDenied) {
+
+  //     setState(() {
+  //       permissionGranted = false;
+  //     });
+  //   }
+  // }
+
+//  void permissionChecker() async{
+//     final status = await Permission.storage.request();
+//     print('objectobjectobjectobject');
+
+// if (status == PermissionStatus.granted) {
+//   print('Permission granted');
+//   _navigateToWhichScreen();
+// } else if (status == PermissionStatus.denied) {
+//   print('Denied. Show a dialog with a reason and again ask for the permission.');
+//   permissionChecker();
+// } else if (status == PermissionStatus.permanentlyDenied) {
+//   print('Take the user to the settings page.');
+// }}
 
   @override
   Widget build(BuildContext context) {
+    // requestPermission();
     return Scaffold(
       body: SafeArea(
         child: Center(

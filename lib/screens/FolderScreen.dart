@@ -5,9 +5,6 @@ import 'package:mark_player/custom%20widgets/app_bar.dart';
 import 'package:mark_player/function/searchFiles.dart';
 import '../custom widgets/folder_tile.dart';
 import 'package:mark_player/screens/onBoardingScreen.dart';
-import 'package:mark_player/screens/onBoardingScreen.dart';
-
-import '../main.dart';
 import '../model/model.dart';
 
 class homeScreen extends StatefulWidget {

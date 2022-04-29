@@ -25,7 +25,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   // Variable declarations
   //List<Uint8List> thumblist = [];
-   List<String> pathList = [];
+  List<String> pathList = [];
 
   List<String> _pathList = [];
   List<String> repeatedFolderNames = [];
@@ -43,8 +43,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
           for (var i = 0; i < _pathList.length; i++) {
             List<String> PathItemsList = _pathList[i].split('/').toList();
-            repeatedFolderNames
-                .add(PathItemsList.elementAt(PathItemsList.length - 2));
+            repeatedFolderNames.add(PathItemsList.elementAt(PathItemsList.length - 2));
             folderNames = repeatedFolderNames.toSet().toList();
             folderNames.remove('0');
           }
@@ -110,7 +109,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   addBoolToSF() async {
-    await prefs.setBool('isFirstTime', true);
+    await prefs.setBool('isFirstTime', false);
   }
 
   @override
