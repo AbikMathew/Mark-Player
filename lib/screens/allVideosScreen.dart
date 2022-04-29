@@ -1,13 +1,11 @@
 import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mark_player/custom%20widgets/app_bar.dart';
 import 'package:mark_player/custom%20widgets/movie_tile.dart';
-import 'package:mark_player/global/globalFunction.dart';
-
-import '../main.dart';
-
+import 'package:mark_player/main.dart';
+import 'package:mark_player/model/model.dart';
 
 class allVideosScreen extends StatefulWidget {
   allVideosScreen({Key? key, required this.pathList, required this.thumblist})
@@ -17,7 +15,6 @@ class allVideosScreen extends StatefulWidget {
   List<String> pathList;
   List<Uint8List> thumblist;
 
-  
 
   @override
   State<allVideosScreen> createState() => _allVideosScreenState();
@@ -44,12 +41,12 @@ class _allVideosScreenState extends State<allVideosScreen> {
     //     fkut();
   }
 
-  shouldChangePathList(){
-    Function eq = const ListEquality().equals;
-    if(!eq(pathlist,widget.pathList)){
+  // shouldChangePathList(){
+  //   Function eq = const ListEquality().equals;
+  //   if(!eq(pathlist,widget.pathList)){
       
-    }
-  }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +60,28 @@ class _allVideosScreenState extends State<allVideosScreen> {
         //notificationPredicate: true,
         color: Color(0xFFD6B392),
         onRefresh: _refresh,
-        child: ListView.builder(
-            itemCount: widget.pathList.length,
-            itemBuilder: (BuildContext, index) {
-              return MovieTile(
-                index: index,
-                movieNamesList: widget.pathList,
-                pathList: widget.pathList,
-                moviesTitle: widget.moviesTitle,
-                thumbnailPhoto: widget.thumblist[index],
-              );
-            }),
+        child: ValueListenableBuilder(
+          valueListenable: box.listenable(),
+          builder: (context, Box<VideoDetailsBox> value, child) {
+             List<VideoDetailsBox> _videoDetailsValues = value.values.toList();
+              for (var i = 0; i < _videoDetailsValues.length; i++) {           
+                pathlist.add(_videoDetailsValues[i].videoFilePath);
+                pathlist.add(_videoDetailsValues[i].thumbnailPath); 
+                }
+
+            return ListView.builder(
+                itemCount: pathlist.length,
+                itemBuilder: (ctx, index) {
+                  return MovieTile(
+                    index: index,
+                    movieNamesList: pathlist,
+               //     pathList: widget.pathList,
+                    moviesTitle: widget.moviesTitle,
+                    thumbnailPhoto: widget.thumblist[index],
+                  );
+                });
+          }
+        ),
       ),
       //   bottomNavigationBar: customNavbar(),
     );

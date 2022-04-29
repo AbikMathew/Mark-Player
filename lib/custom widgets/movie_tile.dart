@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,18 +16,21 @@ import 'package:share_plus/share_plus.dart';
 class MovieTile extends StatefulWidget {
   MovieTile(
       {Key? key,
-      required this.pathList,
+  //    required this.pathList,
       required this.movieNamesList,
       required this.index,
       required this.moviesTitle,
-      required this.thumbnailPhoto})
+      required this.thumbnailPhoto
+      })
       : super(key: key);
 
   // final List<String> folderNames;
   int index;
   List<String> movieNamesList;
-  List<String> pathList;
+
+ // List<String> pathList;
   String moviesTitle;
+ 
   var thumbnailPhoto;
 
   @override
@@ -33,11 +38,21 @@ class MovieTile extends StatefulWidget {
 }
 
 class _MovieTileState extends State<MovieTile> {
+   List<Uint8List> thumbList = [];
   Box<PlaylistBox> boxP1 = Hive.box<PlaylistBox>('MP_BoxP');
+
+  List<VideoDetailsBox> videoValues = Hive.box<VideoDetailsBox>('MP_Box').values.toList();
+    thumbnailMaker(){
+      for (var i = 0; i < videoValues.length; i++) {
+        thumbList.add(videoValues[i].thumbnailPath);
+      }
+    } 
+
 
   //var boxPlaylist = Hive.box<PlayList>(playlistBox);
   @override
   Widget build(BuildContext context) {
+    thumbnailMaker();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 12),
       child: ListTile(
@@ -67,9 +82,8 @@ class _MovieTileState extends State<MovieTile> {
               borderRadius: BorderRadius.circular(6.0),
               image: DecorationImage(
                 fit: BoxFit.fitHeight,
-                //  image: FileImage(File(fileKitti))))),
-                //  image: MemoryImage(thumbnailList[widget.index]),
                 image: MemoryImage(widget.thumbnailPhoto),
+                //image: MemoryImage(thumbList[widget.index]),
               ),
               //
             ),
@@ -160,7 +174,7 @@ class _MovieTileState extends State<MovieTile> {
 
 
   void addToPlaylist(String playlistName){
-    boxPindvidual.add(IndividualPlaylistBox(id: playlistName, plAddedVideoPath: widget.movieNamesList[widget.index], plAddedThumbnail: widget.thumbnailPhoto));
+   // boxPindvidual.add(IndividualPlaylistBox(id: playlistName, plAddedVideoPath: widget.movieNamesList[widget.index], plAddedThumbnail: widget.thumbnailPhoto));
     print('Boxp Individualil അഡ് ആയോ ');
     var key = boxPindvidual.values.toList();
     for (var i = 0; i < boxPindvidual.length; i++) {

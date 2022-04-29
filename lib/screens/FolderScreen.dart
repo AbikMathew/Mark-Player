@@ -15,13 +15,14 @@ class homeScreen extends StatefulWidget {
       {Key? key,
       required this.pathList,
       required this.thumblist,
-      required this.fullDatabaseList})
+      required this.fullDatabaseList,})
+     // required this.shouldCallGetFiles})
       : super(key: key);
 
   List<String> pathList;
   List<Uint8List> thumblist;
   List<VideoDetailsBox> fullDatabaseList;
-
+ // String shouldCallGetFiles;
   @override
   State<homeScreen> createState() => _homeScreenState();
 }
@@ -35,8 +36,19 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   void initState() {
+    // if (widget.shouldCallGetFiles == 'yes'){
+    //   widget.shouldCallGetFiles = 'no';
+    //   getFiles();
+    //   } 
+  if(prefs.getBool('shouldCallGetfiles') == true){
+    addBoolToSP();
     getFiles();
+  }
     super.initState();
+  }
+
+  addBoolToSP() async {
+    await prefs.setBool('shouldCallGetfiles', false);
   }
 
   @override
@@ -45,23 +57,32 @@ class _homeScreenState extends State<homeScreen> {
       appBar: appBar(title: 'Home', visible: false),
       body: SafeArea(
         child: ValueListenableBuilder(
-          valueListenable: box.listenable(),
-          builder: (context, Box<VideoDetailsBox> value, child) {
-            List<VideoDetailsBox> _videoDetailsValues = value.values.toList();
-            
-            return ListView.builder(
-                itemCount: folderNames.length,
-                itemBuilder: ((context, index) {
-                  return folderTile(
-                    folderNames: folderNames,
-                    index: index,
-                    pathList: widget.pathList,
-                    thumbList: widget.thumblist,
-                  );
-                }));
-          }
-        ),
-      ),  //   bottomNavigationBar: customNavbar()
+            valueListenable: box.listenable(),
+            builder: (context, Box<VideoDetailsBox> value, child) {
+              List<VideoDetailsBox> _videoDetailsValues = value.values.toList();
+              for (var i = 0; i < _videoDetailsValues.length; i++) {           
+                _pathList.add(_videoDetailsValues[i].videoFilePath);
+
+                List<String> pathItemsList = _videoDetailsValues[i].videoFilePath.split('/').toList();
+                repeatedFolderNames.add(pathItemsList.elementAt(pathItemsList.length - 2));
+              }
+
+                folderNames = repeatedFolderNames.toSet().toList();
+                folderNames.remove('0');
+              //List<String> videoString= _videoDetailsValues;
+
+              return ListView.builder(
+                  itemCount: folderNames.length,
+                  itemBuilder: ((context, index) {
+                    return folderTile(
+                      folderNames: folderNames,
+                      index: index,
+                      pathList: _pathList,
+                      thumbList: widget.thumblist,
+                    );
+                  }));
+            }),
+      ), //   bottomNavigationBar: customNavbar()
     );
   }
 
@@ -82,10 +103,7 @@ class _homeScreenState extends State<homeScreen> {
   Future addPathOnlytoDB() async {
     await box.clear();
     for (var i = 0; i < _pathList.length; i++) {
-      box.put(
-          i,
-          VideoDetailsBox(
-              videoFilePath: _pathList[i], thumbnailPath: null, fav: false));
+      box.put(i, VideoDetailsBox(videoFilePath: _pathList[i], thumbnailPath: null, fav: false));
     }
     thumbnailGetter();
   }
@@ -107,7 +125,21 @@ class _homeScreenState extends State<homeScreen> {
     for (var i = 0; i < _pathList.length; i++) {
       box.put(
           i,
-          VideoDetailsBox(videoFilePath: _pathList[i], thumbnailPath: thumblist[i], fav: false));
+          VideoDetailsBox(
+              videoFilePath: _pathList[i],
+              thumbnailPath: thumblist[i],
+              fav: false));
+    }
+    setState(() { });
+  }
+
+  folderListCreator() {
+    for (var i = 0; i < widget.pathList.length; i++) {
+      List<String> pathItemsList = widget.pathList[i].split('/').toList();
+      repeatedFolderNames
+          .add(pathItemsList.elementAt(pathItemsList.length - 2));
+      folderNames = repeatedFolderNames.toSet().toList();
+      folderNames.remove('0');
     }
   }
 }

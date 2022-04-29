@@ -36,7 +36,7 @@ class folderTile extends StatelessWidget {
                     MoviesPage(
                       moviesTitle: folderNames[index],
                       pathList: pathList,
-                      thumbList: thumbList,
+                   //   thumbList: thumbList,
                     ))),
         shape: Theme.of(context).listTileTheme.shape,
         tileColor: Theme.of(context).listTileTheme.tileColor,

@@ -18,7 +18,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     addBoolToSF();
-    getFiles();
+    _navigateToFolderScreen();
+   // getFiles();
     //.then((_) => thumbnailGetter());
     super.initState();
   }
@@ -102,7 +103,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         builder: (context) => CustomNavbar(
           pathList: pathList,
           fullDatabaseList: fullDatabaseList,
-          thumblist: thumblist,
+          thumblist: thumblist, 
         ),
       ),
     );

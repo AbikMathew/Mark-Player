@@ -42,13 +42,17 @@ class _SplashScreenState extends State<SplashScreen> {
    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomNavbar(
               pathList: [],
               fullDatabaseList: [],
-              thumblist: [])));
+              thumblist: [],)));
+  }
+
+  addBoolToSP() async {
+    await prefs.setBool('shouldCallGetfiles', true);
   }
 
  
   @override
   Widget build(BuildContext context) {
-
+    addBoolToSP();
      _navigateToWhichScreen();
     
     return Scaffold(

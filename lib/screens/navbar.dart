@@ -19,6 +19,7 @@ class CustomNavbar extends StatefulWidget {
   List<Uint8List> thumblist = [];
   List<VideoDetailsBox> fullDatabaseList = [];
 
+
   @override
   State<CustomNavbar> createState() => _CustomNavbarState();
 }
@@ -27,7 +28,7 @@ class _CustomNavbarState extends State<CustomNavbar> {
   @override
   initState() {
     print('Checking for the app is being done ');
-    valueSetter();
+  //  valueSetter();
     super.initState();
   }
 
@@ -66,7 +67,7 @@ class _CustomNavbarState extends State<CustomNavbar> {
             homeScreen(
                 pathList: widget.pathList,
                 fullDatabaseList: widget.fullDatabaseList,
-                thumblist: widget.thumblist),
+                thumblist: widget.thumblist, ),
             allVideosScreen(
                 pathList: widget.pathList, thumblist: widget.thumblist),
             PlaylistScreen(),
