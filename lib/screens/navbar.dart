@@ -49,7 +49,10 @@ class _CustomNavbarState extends State<CustomNavbar> {
 
   final screens = [
     homeScreen(pathList: [], fullDatabaseList: [], thumblist: [],),
-    allVideosScreen(pathList: [], thumblist: [], ),
+    allVideosScreen(pathList: [], 
+    // thumblist: [], 
+    ),
+
     PlaylistScreen(),
     //  favoritesScreen(),
     // watchLaterScreen(),
@@ -69,7 +72,10 @@ class _CustomNavbarState extends State<CustomNavbar> {
                 fullDatabaseList: widget.fullDatabaseList,
                 thumblist: widget.thumblist, ),
             allVideosScreen(
-                pathList: widget.pathList, thumblist: widget.thumblist),
+                pathList: widget.pathList, 
+                // thumblist: widget.thumblist
+                ),
+
             PlaylistScreen(),
             //   favoritesScreen(),
             //  watchLaterScreen(),

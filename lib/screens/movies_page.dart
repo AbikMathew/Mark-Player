@@ -24,7 +24,8 @@ class MoviesPage extends StatefulWidget {
 
 class _MoviesPageState extends State<MoviesPage> {
   List<String> moviesList = [];
-  List<Uint8List> moviesListThumb = [];
+  //List<Uint8List> moviesListThumb = [];
+  List moviesListThumb = [];
   List<String> pathlist = [];
 
   // fileInFolderLister() {
@@ -64,7 +65,7 @@ class _MoviesPageState extends State<MoviesPage> {
                   movieNamesList: moviesList,
                //   pathList: widget.pathList,
                   moviesTitle: widget.moviesTitle, 
-                  thumbnailPhoto: moviesListThumb[index],
+                 thumbnailPhoto: moviesListThumb[index],
                   
                 );
               });

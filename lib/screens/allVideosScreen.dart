@@ -8,12 +8,14 @@ import 'package:mark_player/main.dart';
 import 'package:mark_player/model/model.dart';
 
 class allVideosScreen extends StatefulWidget {
-  allVideosScreen({Key? key, required this.pathList, required this.thumblist})
+  allVideosScreen({Key? key, required this.pathList, 
+  // required this.thumblist
+  })
       : super(key: key);
 
   String moviesTitle = 'All Videos';
   List<String> pathList;
-  List<Uint8List> thumblist;
+ // List<Uint8List> thumblist;
 
 
   @override
@@ -66,7 +68,7 @@ class _allVideosScreenState extends State<allVideosScreen> {
              List<VideoDetailsBox> _videoDetailsValues = value.values.toList();
               for (var i = 0; i < _videoDetailsValues.length; i++) {           
                 pathlist.add(_videoDetailsValues[i].videoFilePath);
-                pathlist.add(_videoDetailsValues[i].thumbnailPath); 
+                thumbnailList.add(_videoDetailsValues[i].thumbnailPath); 
                 }
 
             return ListView.builder(
@@ -77,7 +79,7 @@ class _allVideosScreenState extends State<allVideosScreen> {
                     movieNamesList: pathlist,
                //     pathList: widget.pathList,
                     moviesTitle: widget.moviesTitle,
-                    thumbnailPhoto: widget.thumblist[index],
+                    thumbnailPhoto: thumbnailList[index],
                   );
                 });
           }

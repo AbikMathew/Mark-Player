@@ -15,11 +15,12 @@ class folderTile extends StatelessWidget {
       required this.pathList,
       required this.folderNames,
       required this.index,
-      required this.thumbList})
+    //  required this.thumbList
+      })
       : super(key: key);
 
   final List<String> pathList;
-  final List<Uint8List> thumbList;
+ // final List<Uint8List> thumbList;
   final List<String> folderNames;
   int index;
   @override

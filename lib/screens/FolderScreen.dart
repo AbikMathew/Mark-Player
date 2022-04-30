@@ -78,7 +78,7 @@ class _homeScreenState extends State<homeScreen> {
                       folderNames: folderNames,
                       index: index,
                       pathList: _pathList,
-                      thumbList: widget.thumblist,
+                    //  thumbList: widget.thumblist,
                     );
                   }));
             }),
@@ -136,8 +136,7 @@ class _homeScreenState extends State<homeScreen> {
   folderListCreator() {
     for (var i = 0; i < widget.pathList.length; i++) {
       List<String> pathItemsList = widget.pathList[i].split('/').toList();
-      repeatedFolderNames
-          .add(pathItemsList.elementAt(pathItemsList.length - 2));
+      repeatedFolderNames.add(pathItemsList.elementAt(pathItemsList.length - 2));
       folderNames = repeatedFolderNames.toSet().toList();
       folderNames.remove('0');
     }

@@ -38,7 +38,7 @@ class MovieTile extends StatefulWidget {
 }
 
 class _MovieTileState extends State<MovieTile> {
-   List<Uint8List> thumbList = [];
+   List thumbList = [];
   Box<PlaylistBox> boxP1 = Hive.box<PlaylistBox>('MP_BoxP');
 
   List<VideoDetailsBox> videoValues = Hive.box<VideoDetailsBox>('MP_Box').values.toList();
@@ -82,7 +82,8 @@ class _MovieTileState extends State<MovieTile> {
               borderRadius: BorderRadius.circular(6.0),
               image: DecorationImage(
                 fit: BoxFit.fitHeight,
-                image: MemoryImage(widget.thumbnailPhoto),
+                image:  widget.thumbnailPhoto == null ? AssetImage('asset/unsplash1.jpg') as ImageProvider : MemoryImage(widget.thumbnailPhoto) ,
+               // image: MemoryImage(widget.thumbnailPhoto),
                 //image: MemoryImage(thumbList[widget.index]),
               ),
               //
