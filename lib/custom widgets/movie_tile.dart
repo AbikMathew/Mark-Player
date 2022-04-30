@@ -39,6 +39,7 @@ class MovieTile extends StatefulWidget {
 
 class _MovieTileState extends State<MovieTile> {
    List thumbList = [];
+   String playlistNameToHive = '';
   Box<PlaylistBox> boxP1 = Hive.box<PlaylistBox>('MP_BoxP');
 
   List<VideoDetailsBox> videoValues = Hive.box<VideoDetailsBox>('MP_Box').values.toList();
@@ -140,6 +141,7 @@ class _MovieTileState extends State<MovieTile> {
               fontSize: 16),
           backgroundColor: Color(0xFF212938),
           title: Text('Choose Playlist'),
+          actions: [TextButton(onPressed: ()=> openDialog(context), child: Text('Create playlist'))],
           content: ValueListenableBuilder(
             valueListenable: boxP.listenable(),
             builder: (context, Box<PlaylistBox> value, child) {
@@ -225,38 +227,79 @@ class _MovieTileState extends State<MovieTile> {
   //    }
   //   //  print(playlistToAdd.plVideoPath.toList().toString());
   //    print('aaaaaaaaaaaa1');
+  
+  
+    Future openDialog(BuildContext context) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              shape: Theme.of(context).listTileTheme.shape,
+              titleTextStyle: TextStyle(color: Color(0xFFD6B392)),
+              backgroundColor: Color(0xFF2D3545),
+              title: Text('Enter the name of the playlist'),
+              content: TextField(
+                onChanged: (value) {
+                  playlistNameToHive = value;
+                },
+                style: TextStyle(color: Colors.white70),
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(color: Colors.white54),
+                  hintText: 'eg: Watch Later',
+                ),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () async {
+                      //  print(playlistNameToHive);
+
+                      if (playlistNameToHive.isNotEmpty) {
+                        // await Hive.openBox("MP_BoxP");
+
+                        if (!nameCheck(playlistNameToHive)) {
+                          await boxP.add(PlaylistBox(
+                              playlistName: playlistNameToHive,
+                              plVideoPath: []));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  duration: Duration(seconds: 1),
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(bottom: 70.0),
+                                  content: Text("Already in list")));
+                        }
+                        List<PlaylistBox> valuesIn = boxP.values.toList();
+                        for (var i = 0; i < valuesIn.length; i++) {
+                          // print('kittuuuuudaaaaaa');
+                          // print(valuesIn[i].playlistName);
+                        }
+
+                        print('Adding to play list');
+                        // playlistNameToHive.clear();
+                        Navigator.of(context).pop();
+                      } else {
+                        // await boxPlaylist.clear();
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: Text(
+                      'Create',
+                      style: TextStyle(color: Color(0xFFD6B392)),
+                    ))
+              ],
+            ));
+
+bool nameCheck(String text) {
+  List<PlaylistBox> _list = Hive.box<PlaylistBox>('MP_BoxP').values.toList();
+  bool check = false;
+  for (int i = 0; i < _list.length; i++) {
+    if (_list[i].playlistName.trim() == text.trim()) {
+      check = true;
+      break;
+    }
   }
+  return check;
+}
+
+}
 
 
 
-
-
-
-
-
-
-List<String> dummyList = [
-  'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs', 'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs', 'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs', 'sdfs',
-  'sdfs',
-  'sdfs',
-  'sdfs', 'sdfs',
-  'sdfs',
-  'sdfs',
-  // 'sdfs','sdfs',
-  // 'sdfs',
-  // 'sdfs',
-  // 'sdfs',
-];

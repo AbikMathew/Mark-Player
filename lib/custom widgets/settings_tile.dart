@@ -37,6 +37,6 @@ class SettingsTile extends StatelessWidget {
   }
 
   tryOne(){
-    getFiles([], [], []);
+   // getFiles([], [], []);
   }
 }

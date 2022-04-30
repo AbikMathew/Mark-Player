@@ -32,7 +32,7 @@ class _allVideosScreenState extends State<allVideosScreen> {
   List<String> folderNames = [];
 
   Future<void> _refresh() async{
-    //return Future.delayed(Duration(seconds: 10));
+    return Future.delayed(Duration(seconds: 10));
     //  getFiles(pathlist, repeatedFolderNames, folderNames).then((_) => null);
     // var tab = boxP.values.toList();
     //  fkut(){
@@ -56,7 +56,7 @@ class _allVideosScreenState extends State<allVideosScreen> {
     
 
     return Scaffold(
-      appBar: appBar(title: widget.moviesTitle, visible: true, movieNamesList: widget.pathList),
+      appBar: appBar(title: widget.moviesTitle, visible: true, movieNamesList: pathlist),
       //  bottomNavigationBar: customNavbar(),
       body: RefreshIndicator(
         //notificationPredicate: true,

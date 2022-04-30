@@ -36,10 +36,6 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   void initState() {
-    // if (widget.shouldCallGetFiles == 'yes'){
-    //   widget.shouldCallGetFiles = 'no';
-    //   getFiles();
-    //   } 
   if(prefs.getBool('shouldCallGetfiles') == true){
     addBoolToSP();
     getFiles();
@@ -87,13 +83,12 @@ class _homeScreenState extends State<homeScreen> {
   }
 
   Future getFiles() async {
-    List<String> values = ['mp4', 'avi', 'mov', 'mkv'];
+    List<String> values = ['mp4','mov','mkv'];
     await SearchFilesInStorage.searchInStorage(
       values,
       (List<String> data) {
         _pathList.clear();
         _pathList.addAll(data);
-
         addPathOnlytoDB();
       },
       (error) {},
@@ -104,13 +99,15 @@ class _homeScreenState extends State<homeScreen> {
     await box.clear();
     for (var i = 0; i < _pathList.length; i++) {
       box.put(i, VideoDetailsBox(videoFilePath: _pathList[i], thumbnailPath: null, fav: false));
+     
     }
     thumbnailGetter();
   }
 
   Future thumbnailGetter() async {
     for (var i = 0; i < _pathList.length; i++) {
-      Uint8List? tPic = (await VideoThumbnail.thumbnailData(
+    //  print("\n\n\n\n\n\n\n\n$i");
+      var tPic = (await VideoThumbnail.thumbnailData(
         video: _pathList[i],
         imageFormat: ImageFormat.JPEG,
         maxWidth: 128,
@@ -123,8 +120,11 @@ class _homeScreenState extends State<homeScreen> {
 
   addPathnThumbtoDb() {
     for (var i = 0; i < _pathList.length; i++) {
+       print('Njan oronnn add cheyyuvaaaaneeeeeeeeeeeeeeeeeeee\n\n\n\n$i');
       box.put(i, VideoDetailsBox(videoFilePath: _pathList[i], thumbnailPath: thumblist[i], fav: false));
     }
+
+    print('ithe പിന്നെയും പിന്നെയും വരുന്നുനദൂ ');
     // setState(() { });
   }
 
