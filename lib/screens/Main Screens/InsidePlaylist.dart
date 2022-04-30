@@ -28,6 +28,8 @@ class _InnerPlaylistState extends State<InnerPlaylist> {
   @override
   Widget build(BuildContext context) {
     List<PlaylistBox> playlist = boxP.values.toList();
+
+
     // List<IndividualPlaylistBox> individualBoxValues = boxPindvidual.values.toList();
 
     // List<String> moviePathList = moviepathlistCreator(individualBoxValues);

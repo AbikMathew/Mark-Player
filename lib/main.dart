@@ -8,6 +8,7 @@ import 'model/model.dart';
 import 'provider/theme_provider.dart';
 
 late Box<VideoDetailsBox> box;
+
 late Box<PlaylistBox> boxP;
 late Box<IndividualPlaylistBox> boxPindvidual;
 late SharedPreferences prefs;
