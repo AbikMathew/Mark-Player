@@ -24,15 +24,15 @@ class SettingsTile extends StatelessWidget {
           Icons.arrow_forward,
           color: Theme.of(context).listTileTheme.textColor,
         ),
-        onTap: tryOne,
+     //   onTap: whichFunctionOnTap(context, settingsIcon),
       )
     );
   }
-  Function? whichFunctionOnTap(BuildContext ctx ,IconData whichIcon ){
+   whichFunctionOnTap(BuildContext ctx ,IconData whichIcon ){
     
     if (whichIcon == Icons.info) {
       print('About enkilum kittvo');
-      showAboutDialog(context: ctx);
+      return showAboutDialog(context: ctx);
     }
   }
 

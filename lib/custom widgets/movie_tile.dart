@@ -83,7 +83,7 @@ class _MovieTileState extends State<MovieTile> {
               borderRadius: BorderRadius.circular(6.0),
               image: DecorationImage(
                 fit: BoxFit.fitHeight,
-                image:  widget.thumbnailPhoto == null ? AssetImage('asset/unsplash1.jpg') as ImageProvider : MemoryImage(widget.thumbnailPhoto) ,
+                image:  widget.thumbnailPhoto == null ? const AssetImage('asset/unsplash1.jpg') as ImageProvider : MemoryImage(widget.thumbnailPhoto) ,
                // image: MemoryImage(widget.thumbnailPhoto),
                 //image: MemoryImage(thumbList[widget.index]),
               ),
@@ -107,21 +107,21 @@ class _MovieTileState extends State<MovieTile> {
                     Future.delayed(const Duration(seconds: 0),
                         () => showSimpleDialog(context));
                   },
-                  child: DropDown(
+                  child: const DropDown(
                       dropDownIcon: Icons.playlist_add,
                       dropDownItem: 'Add to playlist')),
               PopupMenuItem(
                   onTap: ()async{
                      await Share.shareFiles([widget.movieNamesList[widget.index]]);
                   },
-                  child: DropDown(
+                  child: const DropDown(
                       dropDownIcon: Icons.share, dropDownItem: 'Share'))
             ];
           },
           icon: Icon(Icons.more_vert,
               color: Theme.of(context).listTileTheme.textColor),
         ),
-        subtitle: Text(''),
+        subtitle: const Text(''),
         title:  Text(
             basenameWithoutExtension(widget.movieNamesList[widget.index]),
             style: TextStyle(color: Theme.of(context).listTileTheme.textColor),
@@ -134,14 +134,15 @@ class _MovieTileState extends State<MovieTile> {
   Future showSimpleDialog(BuildContext context) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
-          contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 12),
-          titleTextStyle: TextStyle(
-              color: Color(0xFFD6B392),
+        shape: Theme.of(context).popupMenuTheme.shape,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+          titleTextStyle: const TextStyle(
+              color: const Color(0xFFD6B392),
               fontWeight: FontWeight.bold,
               fontSize: 16),
-          backgroundColor: Color(0xFF212938),
-          title: Text('Choose Playlist'),
-          actions: [TextButton(onPressed: ()=> openDialog(context), child: Text('Create playlist'))],
+          backgroundColor: const Color(0xFF212938),
+          title: const Text('Choose Playlist'),
+          actions: [TextButton(onPressed: ()=> openDialog(context), child: const Text('Create playlist'))],
           content: ValueListenableBuilder(
             valueListenable: boxP.listenable(),
             builder: (context, Box<PlaylistBox> value, child) {
@@ -192,7 +193,7 @@ class _MovieTileState extends State<MovieTile> {
      Widget check(List _playListValues, BuildContext context, int index){
 
        if (_playListValues == null) {
-         return Center(child: Text('data', style: TextStyle(color: Colors.white),),
+         return const Center(child: Text('data', style: const TextStyle(color: Colors.white),),
                                 );
        } else {
           return InkWell( onTap:(){ addToPlaylist(_playListValues[index].playlistName);
@@ -233,16 +234,16 @@ class _MovieTileState extends State<MovieTile> {
         context: context,
         builder: (context) => AlertDialog(
               shape: Theme.of(context).listTileTheme.shape,
-              titleTextStyle: TextStyle(color: Color(0xFFD6B392)),
-              backgroundColor: Color(0xFF2D3545),
-              title: Text('Enter the name of the playlist'),
+              titleTextStyle: const TextStyle(color: Color(0xFFD6B392)),
+              backgroundColor: const Color(0xFF2D3545),
+              title: const Text('Enter the name of the playlist'),
               content: TextField(
                 onChanged: (value) {
                   playlistNameToHive = value;
                 },
-                style: TextStyle(color: Colors.white70),
-                decoration: InputDecoration(
-                  hintStyle: TextStyle(color: Colors.white54),
+                style: const TextStyle(color: Colors.white70),
+                decoration: const InputDecoration(
+                  hintStyle:  TextStyle(color: Colors.white54),
                   hintText: 'eg: Watch Later',
                 ),
               ),
@@ -280,7 +281,7 @@ class _MovieTileState extends State<MovieTile> {
                         Navigator.of(context).pop();
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       'Create',
                       style: TextStyle(color: Color(0xFFD6B392)),
                     ))
