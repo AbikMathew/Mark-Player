@@ -103,7 +103,7 @@ class _CustomNavbarState extends State<CustomNavbar> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.local_movies_outlined), label: 'All Videos'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.playlist_add_outlined), label: 'Playlist'),
+                icon: Icon(Icons.menu_outlined), label: 'Playlist'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined), label: 'Settings'),
           ],

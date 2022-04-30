@@ -18,7 +18,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
     addBoolToSF();
-    _navigateToFolderScreen();
+    // _navigateToFolderScreen();
    // getFiles();
     //.then((_) => thumbnailGetter());
     super.initState();
@@ -116,6 +116,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+      _navigateToFolderScreen();
     return WillPopScope(
       onWillPop: () async{
         print('back button pressed');
