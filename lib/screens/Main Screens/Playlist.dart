@@ -53,7 +53,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         context: context,
         builder: (context) => AlertDialog(
               shape: Theme.of(context).listTileTheme.shape,
-              titleTextStyle: TextStyle(color: Color(0xFFD6B392)),
+              titleTextStyle: TextStyle(color: Color(0xFFD6B392), fontWeight: FontWeight.bold),
               backgroundColor: Color(0xFF2D3545),
               title: Text('Enter the name of the playlist'),
               content: TextField(
