@@ -45,14 +45,14 @@ class _InnerPlaylistState extends State<InnerPlaylist> {
                 List<IndividualPlaylistBox> _individualBoxValues = value.values.toList();
 
                  List<String> moviePathList = moviepathlistCreator(_individualBoxValues);
-                  List<Uint8List> thumbPathList = thumbpathlistCreator(_individualBoxValues);
+               //   List thumbPathList = thumbpathlistCreator(_individualBoxValues);
 
                 return ListView.builder(
                   itemCount: moviePathList.length,
                   itemBuilder: ((context, index) {
                     return PlaylistVideoTile(
                         moviePath: moviePathList[index],
-                        thumbnailPhoto: thumbPathList[index],
+                    //    thumbnailPhoto: thumbPathList[index],
                         index: index);
                   }),
                 );
@@ -66,9 +66,7 @@ class _InnerPlaylistState extends State<InnerPlaylist> {
   }
 
   List<String> moviepathlistCreator( List<IndividualPlaylistBox> individualBoxValues) {
-    print('നിൽ  ആയിരിക്കുമോ ഇവിടെ ');
-    print(individualBoxValues.toList().toString());
-
+    
     List<String> moviePathList = [];
 
     for (var i = 0; i < individualBoxValues.length; i++) {

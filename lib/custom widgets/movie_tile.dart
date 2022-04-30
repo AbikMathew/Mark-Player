@@ -96,11 +96,11 @@ class _MovieTileState extends State<MovieTile> {
         trailing: PopupMenuButton(
           itemBuilder: (BuildContext context) {
             return [
-              PopupMenuItem(
-                child: DropDown(
-                    dropDownIcon: Icons.favorite,
-                    dropDownItem: 'Add to favourites'),
-              ),
+              // PopupMenuItem(
+              //   child: DropDown(
+              //       dropDownIcon: Icons.favorite,
+              //       dropDownItem: 'Add to favourites'),
+              // ),
               PopupMenuItem(
                   onTap: () {
                     Future.delayed(const Duration(seconds: 0),
@@ -150,19 +150,21 @@ class _MovieTileState extends State<MovieTile> {
                   shrinkWrap: true,
                   itemCount: _playListValues.length,
                   itemBuilder: (context, index) {
-                    return _playListValues.isEmpty
-                              ? const Center(
-                                  child: Text('data'),
-                                ): InkWell( onTap:(){ addToPlaylist(_playListValues[index].playlistName);
-                                  //  _playListNames[index].playList.add(widget.pathList[widget.index]);
-                              //    print('path ${widget.pathList[widget.index]} Addeddd to ${_playListValues[index].plVideoPath.toString()}');
-                                  Navigator.of(context).pop();},
-                                  child: PlaylistTile(playlistName: _playListValues[index].playlistName, pListMoviePath: [], index: index,),
+                    return check(_playListValues, context, index);
+                    // return _playListValues.isEmpty
+                    //           ? const Center(
+                    //               child: Text('data', style: TextStyle(color: Colors.white),),
+                    //             ): InkWell( onTap:(){ addToPlaylist(_playListValues[index].playlistName);
+                    //               //  _playListNames[index].playList.add(widget.pathList[widget.index]);
+                    //           //    print('path ${widget.pathList[widget.index]} Addeddd to ${_playListValues[index].plVideoPath.toString()}');
+                    //               Navigator.of(context).pop();},
+                    //               child: PlaylistTile(playlistName: _playListValues[index].playlistName, pListMoviePath: [], index: index,),
                                   
-                                  );
+                    //               );
                     //  return PlaylistTile(playlistName: '',);
                   });
 
+               
               // return _playListValues.isEmpty?const Center(
               //                     child: Text('data'),
               //                   ):InkWell(
@@ -175,7 +177,7 @@ class _MovieTileState extends State<MovieTile> {
 
 
   void addToPlaylist(String playlistName){
-   // boxPindvidual.add(IndividualPlaylistBox(id: playlistName, plAddedVideoPath: widget.movieNamesList[widget.index], plAddedThumbnail: widget.thumbnailPhoto));
+    boxPindvidual.add(IndividualPlaylistBox(id: playlistName, plAddedVideoPath: widget.movieNamesList[widget.index], plAddedThumbnail: widget.thumbnailPhoto));
     print('Boxp Individualil അഡ് ആയോ ');
     var key = boxPindvidual.values.toList();
     for (var i = 0; i < boxPindvidual.length; i++) {
@@ -185,6 +187,31 @@ class _MovieTileState extends State<MovieTile> {
     }
   }
 
+     Widget check(List _playListValues, BuildContext context, int index){
+
+       if (_playListValues == null) {
+         return Center(child: Text('data', style: TextStyle(color: Colors.white),),
+                                );
+       } else {
+          return InkWell( onTap:(){ addToPlaylist(_playListValues[index].playlistName);
+                                  //  _playListNames[index].playList.add(widget.pathList[widget.index]);
+                              //    print('path ${widget.pathList[widget.index]} Addeddd to ${_playListValues[index].plVideoPath.toString()}');
+                                  Navigator.of(context).pop();},
+                                  child: PlaylistTile(playlistName: _playListValues[index].playlistName, pListMoviePath: [], index: index,),
+                                  
+                                  );
+       }
+                  // _playListValues.isEmpty
+                  //             ? const Center(
+                  //                 child: Text('data', style: TextStyle(color: Colors.white),),
+                  //               ) : InkWell( onTap:(){ addToPlaylist(_playListValues[index].playlistName);
+                  //                 //  _playListNames[index].playList.add(widget.pathList[widget.index]);
+                  //             //    print('path ${widget.pathList[widget.index]} Addeddd to ${_playListValues[index].plVideoPath.toString()}');
+                  //                 Navigator.of(context).pop();},
+                  //                 child: PlaylistTile(playlistName: _playListValues[index].playlistName, pListMoviePath: [], index: index,),
+                                  
+                  //                 );
+                }
 
   // void addToPlaylist(String name) async {
   //  final playlistToAdd = boxP.values.firstWhere(

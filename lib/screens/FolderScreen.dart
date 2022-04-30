@@ -123,14 +123,9 @@ class _homeScreenState extends State<homeScreen> {
 
   addPathnThumbtoDb() {
     for (var i = 0; i < _pathList.length; i++) {
-      box.put(
-          i,
-          VideoDetailsBox(
-              videoFilePath: _pathList[i],
-              thumbnailPath: thumblist[i],
-              fav: false));
+      box.put(i, VideoDetailsBox(videoFilePath: _pathList[i], thumbnailPath: thumblist[i], fav: false));
     }
-    setState(() { });
+    // setState(() { });
   }
 
   folderListCreator() {
