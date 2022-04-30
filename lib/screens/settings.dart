@@ -14,7 +14,9 @@ class settingsPage extends StatelessWidget {
         children: [
           SettingsTile(settingsIcon: Icons.star, settingsText: 'Rating', ),
           SettingsTile(settingsIcon: Icons.share, settingsText: 'Share', ),
-          SettingsTile(settingsIcon: Icons.info, settingsText: 'About', )
+          GestureDetector(
+            child: SettingsTile(settingsIcon: Icons.info, settingsText: 'About', ),
+            onTap: ()=>showAboutDialog(context: context),)
         ],
       ),
       // bottomNavigationBar: customNavbar(),

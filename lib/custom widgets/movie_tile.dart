@@ -137,7 +137,7 @@ class _MovieTileState extends State<MovieTile> {
         shape: Theme.of(context).popupMenuTheme.shape,
           contentPadding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
           titleTextStyle: const TextStyle(
-              color: const Color(0xFFD6B392),
+              color:  Color(0xFFD6B392),
               fontWeight: FontWeight.bold,
               fontSize: 16),
           backgroundColor: const Color(0xFF212938),
@@ -182,12 +182,12 @@ class _MovieTileState extends State<MovieTile> {
   void addToPlaylist(String playlistName){
     boxPindvidual.add(IndividualPlaylistBox(id: playlistName, plAddedVideoPath: widget.movieNamesList[widget.index], plAddedThumbnail: widget.thumbnailPhoto));
     print('Boxp Individualil അഡ് ആയോ ');
-    var key = boxPindvidual.values.toList();
-    for (var i = 0; i < boxPindvidual.length; i++) {
-      var a = key[i].id;
-      var b = key[i].plAddedVideoPath;
-      print('പേരും പാത്തും കാണാവോ $a,$b');
-    }
+    // var key = boxPindvidual.values.toList();
+    // for (var i = 0; i < boxPindvidual.length; i++) {
+    //   var a = key[i].id;
+    //   var b = key[i].plAddedVideoPath;
+    //   print('പേരും പാത്തും കാണാവോ $a,$b');
+    // }
   }
 
      Widget check(List _playListValues, BuildContext context, int index){

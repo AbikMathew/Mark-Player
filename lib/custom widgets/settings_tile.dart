@@ -24,7 +24,7 @@ class SettingsTile extends StatelessWidget {
           Icons.arrow_forward,
           color: Theme.of(context).listTileTheme.textColor,
         ),
-     //   onTap: whichFunctionOnTap(context, settingsIcon),
+        //onTap: whichFunctionOnTap(context, settingsIcon),
       )
     );
   }
