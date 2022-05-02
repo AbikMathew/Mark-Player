@@ -116,36 +116,49 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-      _navigateToFolderScreen();
+  //    _navigateToFolderScreen();
     return WillPopScope(
       onWillPop: () async{
         print('back button pressed');
         return false;
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Center(
-            //child: FloatingActionButton(onPressed: _navigateToFolderScreen),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 60,
-                  width: 60,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFD6B392)),
-                    strokeWidth: 4,
-                  ),
-                ),
-                SizedBox(
-                  height: 45 ,
-                ),
-                Text(
-                  'Fetching videos from the storage\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPlease wait...',
-                  style: TextStyle(fontSize: 17, color: Color(0xFFD6B392)),
-                )
-              ],
-            ),
+        body: GestureDetector(
+          onTap: ()=>_navigateToFolderScreen(),
+          child: SafeArea(
+            child:  Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                 const Icon(Icons.circle_outlined, size: 100),
+                 const Positioned(
+                      top: 16,
+                      right: 14,
+                      child:  Icon(Icons.play_arrow, size: 70))
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Mark ',
+                      style: TextStyle(
+                          color: Theme.of(context).listTileTheme.textColor,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)),
+                  Text('Player',
+                      style: TextStyle(
+                          color: Theme.of(context).iconTheme.color,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),const SizedBox(height: 80,),
+              const Text('Tap on Mark Player to begin', style: TextStyle(color: Colors.white),)
+            ],
+          ),
+        ),
           ),
         ),
       ),
