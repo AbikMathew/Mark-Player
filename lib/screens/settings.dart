@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mark_player/custom%20widgets/app_bar.dart';
 
 import 'package:mark_player/custom%20widgets/settings_tile.dart';
@@ -16,7 +17,10 @@ class settingsPage extends StatelessWidget {
           SettingsTile(settingsIcon: Icons.share, settingsText: 'Share', ),
           GestureDetector(
             child: SettingsTile(settingsIcon: Icons.info, settingsText: 'About', ),
-            onTap: ()=>showAboutDialog(context: context),)
+           
+            onTap: (){
+              HapticFeedback.heavyImpact();
+              showAboutDialog(context: context);})
         ],
       ),
       // bottomNavigationBar: customNavbar(),

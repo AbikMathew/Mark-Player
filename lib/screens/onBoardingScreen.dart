@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mark_player/main.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import '../function/searchFiles.dart';
@@ -124,7 +125,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       },
       child: Scaffold(
         body: GestureDetector(
-          onTap: ()=>_navigateToFolderScreen(),
+          onTap: (){
+            HapticFeedback.vibrate();
+            _navigateToFolderScreen();},
           child: SafeArea(
             child:  Center(
           child: Column(
