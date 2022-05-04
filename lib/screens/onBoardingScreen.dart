@@ -35,67 +35,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<String> folderNames = [];
   List<VideoDetailsBox> fullDatabaseList = [];
 
-  // Future getFiles() async {
-  //   List<String> values = ['mp4', 'avi', 'mov', 'mkv'];
-  //   await SearchFilesInStorage.searchInStorage(
-  //     values,
-  //     (List<String> data) {
-  //       _pathList.clear();
-  //       setState(() {
-  //         _pathList.addAll(data);
 
-  //         for (var i = 0; i < _pathList.length; i++) {
-  //           List<String> PathItemsList = _pathList[i].split('/').toList();
-  //           repeatedFolderNames.add(PathItemsList.elementAt(PathItemsList.length - 2));
-  //           folderNames = repeatedFolderNames.toSet().toList();
-  //           folderNames.remove('0');
-  //         }
-  //         thumbnailGetter();
-  //       });
-  //     },
-  //     (error) {},
-  //   ); //TODO: implement initState
-  // }
-
-//   Future thumbnailGetter() async {
-//     for (var i = 0; i < _pathList.length; i++) {
-//       Uint8List? key = (await VideoThumbnail.thumbnailData(
-//         video: _pathList[i],
-//         imageFormat: ImageFormat.JPEG,
-//         maxWidth: 128,
-//         quality: 25,
-//       ));
-
-//       box.add(VideoDetailsBox(videoFilePath: _pathList[i], thumbnailPath: key, fav: false));
-
-//      // box.putAt(index, value)  
-
-//       fullDatabaseList = box.values.toList();
-//       //box.values.contains('a');
-
-//       // DATABASE FUNCTIONS
-
-//       //  boxVideos.put(fullDatabaseList[i].key, VideoDetailsBox(videoFilePath: 'abik', thumbnailPath: 'karthik', fav: true));
-//       //  box.put(fullDatabaseList[i].key, VideoDetailsBox(videoFilePath: 'abik', thumbnailPath: 'karthik', fav: true));
-
-//       //  boxVideos.delete(fullDatabaseList[i].key);
-//       //  box.delete(fullDatabaseList[i].key);
-// // I JUST TURNED THIS OFF
-//       // setState(() {});
-//     }
-
-//     print('KittunundOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO');
-
-//     putDbItemstoLists();
-//   }
-
-//  // putDbItemstoLists() {
-//     for (var i = 0; i < fullDatabaseList.length; i++) {
-//       pathList.add(fullDatabaseList[i].videoFilePath);
-//       thumblist.add(fullDatabaseList[i].thumbnailPath);
-//     }
-//     _navigateToFolderScreen();
-//   }
 
   _navigateToFolderScreen() {
     //Future.delayed(Duration(milliseconds: 1500), () {});
