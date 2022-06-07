@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:mark_player/main.dart';
 import 'package:mark_player/screens/onBoardingScreen.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:permission_handler/permission_handler.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'FolderScreen.dart';
 import '../model/model.dart';
@@ -18,11 +18,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   List<VideoDetailsBox> fullDatabaseList = [];
   List<Uint8List> thumblist = [];
   List<String> pathList = [];
-
 
   _navigateToWhichScreen() {
     if (prefs.getBool('isFirstTime') == false) {
@@ -33,28 +31,33 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToOnboardingScreen() async {
-    await Future.delayed(Duration(milliseconds: 10500), () {});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OnBoardingScreen()));
+    await Future.delayed(const Duration(milliseconds: 10500), () {});
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const OnBoardingScreen()));
   }
 
   _navigateToFolderScreen() async {
-    await Future.delayed(Duration(milliseconds: 1500), () {});
-   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomNavbar(
-              pathList: [],
-              fullDatabaseList: [],
-              thumblist: [],)));
+    await Future.delayed(const Duration(milliseconds: 1500), () {});
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CustomNavbar(
+                  pathList: const [],
+                  fullDatabaseList: const [],
+                  thumblist: const [],
+                )));
   }
 
   addBoolToSP() async {
     await prefs.setBool('shouldCallGetfiles', true);
   }
 
- 
   @override
   Widget build(BuildContext context) {
-    addBoolToSP();
-     _navigateToWhichScreen();
     
+    addBoolToSP();
+    _navigateToWhichScreen();
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -62,12 +65,12 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
-                children: [
-                 const Icon(Icons.circle_outlined, size: 100),
-                 const Positioned(
+                children: const [
+                  Icon(Icons.circle_outlined, size: 100),
+                  Positioned(
                       top: 16,
                       right: 14,
-                      child:  Icon(Icons.play_arrow, size: 70))
+                      child: Icon(Icons.play_arrow, size: 70))
                 ],
               ),
               const SizedBox(height: 10),
@@ -85,7 +88,14 @@ class _SplashScreenState extends State<SplashScreen> {
                           fontSize: 30,
                           fontWeight: FontWeight.bold)),
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 80,
+              ),
+              const Text(
+                'Please Wait...',
+                style: TextStyle(color: Colors.white),
+              ),
             ],
           ),
         ),

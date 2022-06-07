@@ -1,12 +1,6 @@
-import 'dart:ffi';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mark_player/custom%20widgets/drop_down.dart';
-import 'package:mark_player/screens/settings.dart';
-
-import '../main.dart';
 import '../screens/movies_page.dart';
 
 class folderTile extends StatelessWidget {

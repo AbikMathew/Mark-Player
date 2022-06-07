@@ -42,14 +42,14 @@ class _CustomNavbarState extends State<CustomNavbar> {
   }
 
 
-  int CurrentIndex = 0;
+  //int currentIndex = 0;
   int _selectedIndex = 0;
 
   final PageController _pageController = PageController();
 
   final screens = [
-    homeScreen(pathList: [], fullDatabaseList: [], thumblist: [],),
-    allVideosScreen(pathList: [], 
+    homeScreen(pathList: const [], fullDatabaseList: const [], thumblist: const [],),
+    allVideosScreen(pathList: const [], 
     // thumblist: [], 
     ),
 
@@ -80,7 +80,7 @@ class _CustomNavbarState extends State<CustomNavbar> {
             //   favoritesScreen(),
             //  watchLaterScreen(),
 
-            settingsPage(),
+            const settingsPage(),
             // MoviesPage()
           ],
           onPageChanged: (page) {

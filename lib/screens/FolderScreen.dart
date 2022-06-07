@@ -82,6 +82,9 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
 
+  // Get.to(()=>onBoardingScreen());
+  // Get.back();
+
   Future getFiles() async {
     List<String> values = ['mp4','mov','mkv'];
     await SearchFilesInStorage.searchInStorage(

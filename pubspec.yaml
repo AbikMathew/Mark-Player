@@ -39,7 +39,11 @@ dependencies:
   permission_handler: ^9.2.0
   share_plus: ^4.0.4
   shared_preferences: ^2.0.13
-  video_compress: ^3.1.0
+    #video_compress: ^3.1.0
+  video_compress:
+    git:
+      url: https://github.com/jonataslaw/VideoCompress.git
+      ref: master
   video_thumbnail: ^0.5.0
 
 dev_dependencies:
