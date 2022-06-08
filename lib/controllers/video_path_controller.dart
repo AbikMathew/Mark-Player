@@ -6,7 +6,7 @@ import 'package:mark_player/model/model.dart';
 import '../function/searchFiles.dart';
 
 class VideoPathController extends GetxController {
-  final Box mainObservableBox = VideoRepository.getVideoBox();
+  final Box<VideoDetailsBox> mainObservableBox = VideoRepository.getVideoBox();
   List<String> _pathList = [];
 
   clearBox() => mainObservableBox.clear();
@@ -39,5 +39,22 @@ class VideoPathController extends GetxController {
             videoFilePath: _pathList[i], thumbnailPath: null, fav: false),
       );
     }
+  }
+
+  folderListCreator() {
+    List<String> repeatedFolderNames = [];
+    List<String> folderNames = [];
+    final _videoDetailsValues = mainObservableBox.values.toList();
+
+    for (var i = 0; i < _videoDetailsValues.length; i++) {
+      List<String> pathItemsList =
+          _videoDetailsValues[i].videoFilePath.split('/').toList();
+      repeatedFolderNames
+          .add(pathItemsList.elementAt(pathItemsList.length - 2));
+    }
+
+    folderNames = repeatedFolderNames.toSet().toList();
+    folderNames.remove('0');
+    return folderNames;
   }
 }
