@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mark_player/controllers/video_path_controller.dart';
 import 'package:mark_player/main.dart';
 import '../model/model.dart';
 import '../screens/FolderScreen.dart';
@@ -29,8 +31,11 @@ class _CustomNavbarState extends State<CustomNavbar> {
   initState() {
     print('Checking for the app is being done ');
   //  valueSetter();
+  //controller.getFiles();
     super.initState();
   }
+
+  final controller = Get.put(VideoPathController());
 
   valueSetter() {
     widget.fullDatabaseList = box.values.toList();

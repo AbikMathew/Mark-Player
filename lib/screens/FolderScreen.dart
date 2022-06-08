@@ -38,7 +38,7 @@ class _homeScreenState extends State<homeScreen> {
   void initState() {
   if(prefs.getBool('shouldCallGetfiles') == true){
     addBoolToSP();
-    getFiles();
+    // getFiles();
   }
     super.initState();
   }

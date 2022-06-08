@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mark_player/controllers/video_path_controller.dart';
 import 'package:mark_player/main.dart';
 import 'package:mark_player/screens/onBoardingScreen.dart';
 // import 'package:permission_handler/permission_handler.dart';
@@ -10,14 +12,16 @@ import 'package:mark_player/screens/onBoardingScreen.dart';
 import '../model/model.dart';
 import 'navbar.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatelessWidget {
+  SplashScreen({Key? key}) : super(key: key);
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
+//   @override
+//   State<SplashScreen> createState() => _SplashScreenState();
+// }
 
-class _SplashScreenState extends State<SplashScreen> {
+// class _SplashScreenState extends State<SplashScreen> {
+  final controller = Get.put(VideoPathController());
+
   List<VideoDetailsBox> fullDatabaseList = [];
   List<Uint8List> thumblist = [];
   List<String> pathList = [];
@@ -32,20 +36,28 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigateToOnboardingScreen() async {
     await Future.delayed(const Duration(milliseconds: 10500), () {});
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const OnBoardingScreen()));
+    Get.to(const OnBoardingScreen());
+    // Navigator.pushReplacement(context,
+    //     MaterialPageRoute(builder: (context) => const OnBoardingScreen()));
   }
 
   _navigateToFolderScreen() async {
     await Future.delayed(const Duration(milliseconds: 1500), () {});
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CustomNavbar(
-                  pathList: const [],
-                  fullDatabaseList: const [],
-                  thumblist: const [],
-                )));
+
+    // add the adding path here await and then go to folders
+    await controller.getFiles();
+
+    Get.offAll(CustomNavbar(
+        pathList: const [], fullDatabaseList: const [], thumblist: const []));
+     
+    // Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => CustomNavbar(
+    //               pathList: const [],
+    //               fullDatabaseList: const [],
+    //               thumblist: const [],
+    //             )));
   }
 
   addBoolToSP() async {
@@ -54,7 +66,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     addBoolToSP();
     _navigateToWhichScreen();
 
