@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mark_player/screens/splash_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -8,7 +7,6 @@ import 'model/model.dart';
 import 'provider/theme_provider.dart';
 
 late Box<VideoDetailsBox> box;
-
 late Box<PlaylistBox> boxP;
 late Box<IndividualPlaylistBox> boxPindvidual;
 late SharedPreferences prefs;
