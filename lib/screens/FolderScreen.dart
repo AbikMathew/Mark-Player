@@ -31,14 +31,17 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
-  VideoPathController controller = Get.find();
+  // Working on creating folder using controller
+
+  // VideoPathController controller = Get.find<VideoPathController>();
 
   List<String> _pathList = [];
   List<Uint8List> thumblist = [];
 
   List<String> repeatedFolderNames = [];
   // List<String> folderNames = [];
-List<String> folderNames = controller.folderListCreator();
+  // List<String> folderNames = controller.folderListCreator();
+
   @override
   void initState() {
     if (prefs.getBool('shouldCallGetfiles') == true) {
@@ -57,104 +60,137 @@ List<String> folderNames = controller.folderListCreator();
     return Scaffold(
       appBar: appBar(title: 'Home', visible: false),
       body: SafeArea(
-        child: ValueListenableBuilder(
-            valueListenable: box.listenable(),
-            builder: (context, Box<VideoDetailsBox> value, child) {
-              List<VideoDetailsBox> _videoDetailsValues = value.values.toList();
-              for (var i = 0; i < _videoDetailsValues.length; i++) {
-                _pathList.add(_videoDetailsValues[i].videoFilePath);
+        child: GetBuilder<VideoPathController>(
+          builder: ((controller) {
+            List<String> folderNames = controller.folderListCreator();
 
-                List<String> pathItemsList =
-                    _videoDetailsValues[i].videoFilePath.split('/').toList();
-                repeatedFolderNames
-                    .add(pathItemsList.elementAt(pathItemsList.length - 2));
-              }
-
-              folderNames = repeatedFolderNames.toSet().toList();
-              folderNames.remove('0');
-              //List<String> videoString= _videoDetailsValues;
-
+            if (controller.folderListCreator().isNotEmpty) {
               return ListView.builder(
-                  itemCount: folderNames.length,
-                  itemBuilder: ((context, index) {
-                    return folderTile(
-                      folderNames: folderNames,
-                      index: index,
-                      pathList: _pathList,
-                      //  thumbList: widget.thumblist,
-                    );
-                  }));
-            }),
-      ), //   bottomNavigationBar: customNavbar()
+                itemCount: folderNames.length,
+                itemBuilder: (context, index) {
+                  return folderTile(
+                    folderNames: folderNames,
+                    index: index,
+                    pathList: _pathList,
+                    //  thumbList: widget.thumblist,
+                  );
+                },
+              );
+            } else {
+              return const Center(
+                child: Text('No Folders'),
+              );
+            }
+          }),
+        ),
+      ),
     );
   }
+}
+
+
+
+//       body: SafeArea(
+//         child: ValueListenableBuilder(
+//             valueListenable: box.listenable(),
+//             builder: (context, Box<VideoDetailsBox> value, child) {
+//               List<VideoDetailsBox> _videoDetailsValues = value.values.toList();
+//               for (var i = 0; i < _videoDetailsValues.length; i++) {
+//                 _pathList.add(_videoDetailsValues[i].videoFilePath);
+
+//                 List<String> pathItemsList =
+//                     _videoDetailsValues[i].videoFilePath.split('/').toList();
+//                 repeatedFolderNames
+//                     .add(pathItemsList.elementAt(pathItemsList.length - 2));
+//               }
+
+//               folderNames = repeatedFolderNames.toSet().toList();
+//               folderNames.remove('0');
+//               //List<String> videoString= _videoDetailsValues;
+
+//               return ListView.builder(
+//                   itemCount: folderNames.length,
+//                   itemBuilder: ((context, index) {
+//                     return folderTile(
+//                       folderNames: folderNames,
+//                       index: index,
+//                       pathList: _pathList,
+//                       //  thumbList: widget.thumblist,
+//                     );
+//                   }));
+//             }),
+//       ), //   bottomNavigationBar: customNavbar()
+//     );
+//   }
+// }
+
 
   // Get.to(()=>onBoardingScreen());
   // Get.back();
 
-  Future getFiles() async {
-    List<String> values = ['mp4', 'mov', 'mkv'];
-    await SearchFilesInStorage.searchInStorage(
-      values,
-      (List<String> data) {
-        _pathList.clear();
-        _pathList.addAll(data);
-        addPathOnlytoDB();
-      },
-      (error) {},
-    ); //TODO: implement initState
-  }
+  // Future getFiles() async {
+  //   List<String> values = ['mp4', 'mov', 'mkv'];
+  //   await SearchFilesInStorage.searchInStorage(
+  //     values,
+  //     (List<String> data) {
+  //       _pathList.clear();
+  //       _pathList.addAll(data);
+  //       addPathOnlytoDB();
+  //     },
+  //     (error) {},
+  //   ); //TODO: implement initState
+  // }
 
-  Future addPathOnlytoDB() async {
-    await box.clear();
-    for (var i = 0; i < _pathList.length; i++) {
-      box.put(
-          i,
-          VideoDetailsBox(
-              videoFilePath: _pathList[i], thumbnailPath: null, fav: false));
-    }
-    thumbnailGetter();
-  }
+  // Future addPathOnlytoDB() async {
+  //   await box.clear();
+  //   for (var i = 0; i < _pathList.length; i++) {
+  //     box.put(
+  //         i,
+  //         VideoDetailsBox(
+  //             videoFilePath: _pathList[i], thumbnailPath: null, fav: false));
+  //   }
+  //   thumbnailGetter();
+  // }
 
-  Future thumbnailGetter() async {
-    for (var i = 0; i < _pathList.length; i++) {
-      //  print("\n\n\n\n\n\n\n\n$i");
-      var tPic = (await VideoThumbnail.thumbnailData(
-        video: _pathList[i],
-        imageFormat: ImageFormat.JPEG,
-        maxWidth: 128,
-        quality: 25,
-      ));
-      thumblist.add(tPic!);
-    }
-    addPathnThumbtoDb();
-  }
+  // Future thumbnailGetter() async {
+  //   for (var i = 0; i < _pathList.length; i++) {
+  //     //  print("\n\n\n\n\n\n\n\n$i");
+  //     var tPic = (await VideoThumbnail.thumbnailData(
+  //       video: _pathList[i],
+  //       imageFormat: ImageFormat.JPEG,
+  //       maxWidth: 128,
+  //       quality: 25,
+  //     ));
+  //     thumblist.add(tPic!);
+  //   }
+  //   addPathnThumbtoDb();
+  // }
 
-  addPathnThumbtoDb() {
-    for (var i = 0; i < _pathList.length; i++) {
-      print('Njan oronnn add cheyyuvaaaaneeeeeeeeeeeeeeeeeeee\n\n\n\n$i');
-      box.put(
-          i,
-          VideoDetailsBox(
-              videoFilePath: _pathList[i],
-              thumbnailPath: thumblist[i],
-              fav: false));
-    }
+  // addPathnThumbtoDb() {
+  //   for (var i = 0; i < _pathList.length; i++) {
+  //     print('Njan oronnn add cheyyuvaaaaneeeeeeeeeeeeeeeeeeee\n\n\n\n$i');
+  //     box.put(
+  //         i,
+  //         VideoDetailsBox(
+  //             videoFilePath: _pathList[i],
+  //             thumbnailPath: thumblist[i],
+  //             fav: false));
+  //   }
 
-    print('ithe പിന്നെയും പിന്നെയും വരുന്നുനദൂ ');
-    // setState(() { });
-  }
+  //   print('ithe പിന്നെയും പിന്നെയും വരുന്നുനദൂ ');
+  //   // setState(() { });
+  // }
 
-  folderListCreator() {
-    for (var i = 0; i < widget.pathList.length; i++) {
-      List<String> pathItemsList = widget.pathList[i].split('/').toList();
-      repeatedFolderNames
-          .add(pathItemsList.elementAt(pathItemsList.length - 2));
-      folderNames = repeatedFolderNames.toSet().toList();
-      folderNames.remove('0');
-    }
-  }
-}
+  // folderListCreator() {
+  //   for (var i = 0; i < widget.pathList.length; i++) {
+  //     List<String> pathItemsList = widget.pathList[i].split('/').toList();
+  //     repeatedFolderNames
+  //         .add(pathItemsList.elementAt(pathItemsList.length - 2));
+  //     folderNames = repeatedFolderNames.toSet().toList();
+  //     folderNames.remove('0');
+  //   }
+  // }
+
 
 
    // box.add(VideoDetailsBox(videoFilePath: pathList[i], thumbnailPath: key, fav: false));

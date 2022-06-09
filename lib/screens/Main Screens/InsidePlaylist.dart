@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:mark_player/controllers/playlist_video_controller.dart';
 import 'package:mark_player/custom%20widgets/app_bar.dart';
 import 'package:mark_player/custom%20widgets/playlistVideoTile.dart';
 import 'package:mark_player/main.dart';
@@ -24,62 +26,62 @@ class InnerPlaylist extends StatefulWidget {
 }
 
 class _InnerPlaylistState extends State<InnerPlaylist> {
+  PlaylistVideoController controller = Get.put(PlaylistVideoController());
   @override
   Widget build(BuildContext context) {
     List<PlaylistBox> playlist = boxP.values.toList();
-
 
     // List<IndividualPlaylistBox> individualBoxValues = boxPindvidual.values.toList();
 
     // List<String> moviePathList = moviepathlistCreator(individualBoxValues);
     // List<Uint8List> thumbPathList = thumbpathlistCreator(individualBoxValues);
 
-
     return Scaffold(
       appBar: appBar(title: widget.plName, visible: false),
       body: Column(
         children: [
           Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: boxPindvidual.listenable(),
-              builder: (context, Box<IndividualPlaylistBox> value, child) {
-                List<IndividualPlaylistBox> _individualBoxValues = value.values.toList();
+            child: GetBuilder<PlaylistVideoController>(
+              builder: (controller) {
+                // List<IndividualPlaylistBox> _individualBoxValues = value.values.toList();
 
-                 List<String> moviePathList = moviepathlistCreator(_individualBoxValues);
-               //   List thumbPathList = thumbpathlistCreator(_individualBoxValues);
+                List<String> moviePathList =
+                    controller.moviepathlistCreator(widget.plName);
+                //
+                //   List thumbPathList = thumbpathlistCreator(_individualBoxValues);
 
                 return ListView.builder(
                   itemCount: moviePathList.length,
                   itemBuilder: ((context, index) {
                     return PlaylistVideoTile(
                         moviePath: moviePathList[index],
-                    //    thumbnailPhoto: thumbPathList[index],
+                        //    thumbnailPhoto: thumbPathList[index],
                         index: index);
                   }),
                 );
               },
-        
             ),
+            //  value listenalble builder ),
           )
         ],
       ),
     );
   }
 
-  List<String> moviepathlistCreator( List<IndividualPlaylistBox> individualBoxValues) {
-    
-    List<String> moviePathList = [];
+  // List<String> moviepathlistCreator( List<IndividualPlaylistBox> individualBoxValues) {
 
-    for (var i = 0; i < individualBoxValues.length; i++) {
-      if (individualBoxValues[i].id == widget.plName) {
-        moviePathList.add(individualBoxValues[i].plAddedVideoPath);
+  //   List<String> moviePathList = [];
 
-        // individualBoxValues[i].key;
-        // individualBoxValues[i].key;
-      }
-    }
-    return moviePathList;
-  }
+  //   for (var i = 0; i < individualBoxValues.length; i++) {
+  //     if (individualBoxValues[i].id == widget.plName) {
+  //       moviePathList.add(individualBoxValues[i].plAddedVideoPath);
+
+  //       // individualBoxValues[i].key;
+  //       // individualBoxValues[i].key;
+  //     }
+  //   }
+  //   return moviePathList;
+  // }
 
   List<Uint8List> thumbpathlistCreator(
       List<IndividualPlaylistBox> individualBoxValues) {

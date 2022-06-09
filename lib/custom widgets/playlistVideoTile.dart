@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mark_player/controllers/playlist_video_controller.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mark_player/custom%20widgets/drop_down.dart';
 import 'package:mark_player/custom%20widgets/playlistTile.dart';
@@ -84,7 +86,7 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
                     dropDownIcon: Icons.remove_circle,
                     dropDownItem: 'Remove from favourites'),
                 onTap: () {
-                  removeFromFav(widget.moviePath);
+                  ctr.removeFromFav(widget.moviePath);
                   // setState(() {
                     
                   // });
@@ -118,10 +120,11 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
       ),
     );
   }
-
+  PlaylistVideoController ctr = Get.find<PlaylistVideoController>();
   removeFromFav(String videoPath) {
     //boxPindvidual.values;
-    final removeVideo = boxPindvidual.values
+    final removeVideo = ctr.playlistVideoObservableBox.values
+    //final removeVideo = boxPindvidual.values
         .firstWhere((element) => element.plAddedVideoPath == videoPath);
     removeVideo.delete();
   }

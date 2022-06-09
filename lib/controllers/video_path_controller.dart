@@ -6,7 +6,9 @@ import 'package:mark_player/model/model.dart';
 import '../function/searchFiles.dart';
 
 class VideoPathController extends GetxController {
+  
   final Box<VideoDetailsBox> mainObservableBox = VideoRepository.getVideoBox();
+  
   List<String> _pathList = [];
 
   clearBox() => mainObservableBox.clear();
