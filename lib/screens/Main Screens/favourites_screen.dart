@@ -16,19 +16,25 @@ class FavouritesScreen extends StatelessWidget {
     return Scaffold(
       appBar: appBar(
         title: 'Favourites',
-        visible: true,
+        visible: false,
       ),
       body: Center(
         child: GetBuilder<FavoritesController>(builder: (controller) {
           return controller.favObservableBox.values.toList().isEmpty
-              ? const Center(child: Text('No Videos added to favourites',style: TextStyle(color: Colors.white54),),)
+              ? const Center(
+                  child: Text(
+                    'No Videos added to favourites',
+                    style: TextStyle(color: Colors.white54),
+                  ),
+                )
               : ListView.builder(
-                  itemCount: a.length,
+                  itemCount: controller.favObservableBox.length,
                   itemBuilder: (ctx, index) {
                     return FavouritesTile(
                       videoPath: controller.favObservableBox.values
                           .toList()[index]
                           .favVideoPath,
+                      index: index,
                     );
                   },
                 );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mark_player/controllers/favourites_controller.dart';
 import 'package:mark_player/controllers/playlist_video_controller.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mark_player/custom%20widgets/drop_down.dart';
@@ -22,7 +23,7 @@ class PlaylistVideoTile extends StatefulWidget {
   String moviePath;
   //Uint8List thumbnailPhoto;
   int index;
-
+  final FavoritesController favController = Get.find<FavoritesController>();
   //
   @override
   State<PlaylistVideoTile> createState() => _PlaylistVideoTileState();
@@ -63,25 +64,21 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
           itemBuilder: (BuildContext context) {
             return [
               PopupMenuItem(
+                onTap: () {
+                  widget.favController.addToFav(widget.moviePath);
+                },
+                child: const DropDown(
+                    dropDownIcon: Icons.favorite,
+                    dropDownItem: 'Add to favourites'),
+              ),
+              PopupMenuItem(
                 child: const DropDown(
                     dropDownIcon: Icons.remove_circle,
-                    dropDownItem: 'Remove from favourites'),
+                    dropDownItem: 'Remove from playlist'),
                 onTap: () {
-                  ctr.removeFromFav(widget.moviePath);
-                  // setState(() {
-
-                  // });
-                  // Navigator.pop(context);
+                  ctr.removeFromPlaylist(widget.moviePath);
                 },
               ),
-              // PopupMenuItem(
-              //     onTap: () {
-              //       Future.delayed(const Duration(seconds: 0),
-              //           () => showSimpleDialog(context));
-              //     },
-              //     child: DropDown(
-              //         dropDownIcon: Icons.playlist_add,
-              //         dropDownItem: 'Add to playlist')),
               PopupMenuItem(
                   onTap: () async {
                     await Share.shareFiles([widget.moviePath]);

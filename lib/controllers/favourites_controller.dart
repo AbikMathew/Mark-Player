@@ -10,8 +10,10 @@ class FavoritesController extends GetxController{
 
  addToFav(String path){
     favObservableBox.add(FavouritesBox(favVideoPath: path));
+    update();
  }
  deleteFromFav(int index){
     favObservableBox.deleteAt(index);
+    update();
  }
 }  

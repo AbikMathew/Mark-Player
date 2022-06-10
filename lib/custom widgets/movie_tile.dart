@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:get/get.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mark_player/custom%20widgets/drop_down.dart';
 import 'package:mark_player/custom%20widgets/playlistTile.dart';
@@ -10,6 +10,8 @@ import 'package:mark_player/model/model.dart';
 import 'package:mark_player/screens/video_screens.dart';
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../controllers/favourites_controller.dart';
 
 class MovieTile extends StatefulWidget {
   MovieTile(
@@ -21,13 +23,11 @@ class MovieTile extends StatefulWidget {
       required this.thumbnailPhoto})
       : super(key: key);
 
-  // final List<String> folderNames;
+  final FavoritesController favController = Get.find<FavoritesController>();
+
   int index;
   List<String> movieNamesList;
-
-  // List<String> pathList;
   String moviesTitle;
-
   var thumbnailPhoto;
 
   @override
@@ -96,8 +96,12 @@ class _MovieTileState extends State<MovieTile> {
         trailing: PopupMenuButton(
           itemBuilder: (BuildContext context) {
             return [
-              const PopupMenuItem(
-                child: DropDown(
+              PopupMenuItem(
+                onTap: () {
+                  widget.favController
+                      .addToFav(widget.movieNamesList[widget.index]);
+                },
+                child: const DropDown(
                     dropDownIcon: Icons.favorite,
                     dropDownItem: 'Add to favourites'),
               ),

@@ -21,7 +21,7 @@ class PlaylistVideoController extends GetxController {
     update();
   }
 
-  removeFromFav(String videoPath) {
+  removeFromPlaylist(String videoPath) {
     //boxPindvidual.values;
     final removeVideo = boxPindvidual.values
     //final removeVideo = boxPindvidual.values
