@@ -122,3 +122,37 @@ class IndividualPlaylistBoxAdapter extends TypeAdapter<IndividualPlaylistBox> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class FavouritesBoxAdapter extends TypeAdapter<FavouritesBox> {
+  @override
+  final int typeId = 5;
+
+  @override
+  FavouritesBox read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return FavouritesBox(
+      favVideoPath: fields[0] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, FavouritesBox obj) {
+    writer
+      ..writeByte(1)
+      ..writeByte(0)
+      ..write(obj.favVideoPath);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FavouritesBoxAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

@@ -19,16 +19,18 @@ Future<void> main() async {
   Hive.registerAdapter(VideoDetailsBoxAdapter());
   Hive.registerAdapter(PlaylistBoxAdapter());
   Hive.registerAdapter(IndividualPlaylistBoxAdapter());
+  Hive.registerAdapter(FavouritesBoxAdapter());
 
   box = await Hive.openBox<VideoDetailsBox>('MP_Box');
   boxP = await Hive.openBox<PlaylistBox>('MP_BoxP');
   boxPindvidual = await Hive.openBox<IndividualPlaylistBox>('MP_BoxP_indv');
+  Hive.openBox<FavouritesBox>('MP_BoxFav');
 
   requestPermission();
 
   prefs = await SharedPreferences.getInstance();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 requestPermission() async {
@@ -41,7 +43,7 @@ requestPermission() async {
 
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

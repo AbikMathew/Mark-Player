@@ -3,7 +3,10 @@ part 'model.g.dart';
 
 @HiveType(typeId: 1)
 class VideoDetailsBox extends HiveObject {
-  VideoDetailsBox({required this.videoFilePath, required this.thumbnailPath, required this.fav});
+  VideoDetailsBox(
+      {required this.videoFilePath,
+      required this.thumbnailPath,
+      required this.fav});
 
   @HiveField(0)
   String videoFilePath;
@@ -15,9 +18,8 @@ class VideoDetailsBox extends HiveObject {
   bool fav;
 }
 
-
 @HiveType(typeId: 3)
-class PlaylistBox extends HiveObject{
+class PlaylistBox extends HiveObject {
   PlaylistBox({required this.playlistName, required this.plVideoPath});
 
   @HiveField(0)
@@ -27,10 +29,12 @@ class PlaylistBox extends HiveObject{
   List<String> plVideoPath;
 }
 
-
 @HiveType(typeId: 4)
-class IndividualPlaylistBox extends HiveObject{
-  IndividualPlaylistBox({required this.id, required this.plAddedVideoPath, required this.plAddedThumbnail});
+class IndividualPlaylistBox extends HiveObject {
+  IndividualPlaylistBox(
+      {required this.id,
+      required this.plAddedVideoPath,
+      required this.plAddedThumbnail});
 
   @HiveField(0)
   String id;
@@ -40,6 +44,14 @@ class IndividualPlaylistBox extends HiveObject{
 
   @HiveField(2)
   var plAddedThumbnail;
+}
+
+@HiveType(typeId: 5)
+class FavouritesBox extends HiveObject {
+  FavouritesBox({required this.favVideoPath});
+  
+  @HiveField(0)
+  String favVideoPath;
 }
 
 

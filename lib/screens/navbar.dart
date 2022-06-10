@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mark_player/controllers/video_path_controller.dart';
-import 'package:mark_player/main.dart';
+import 'package:mark_player/screens/Main%20Screens/favourites_screen.dart';
 import '../model/model.dart';
 import '../screens/FolderScreen.dart';
 import '../screens/settings.dart';
@@ -21,48 +21,29 @@ class CustomNavbar extends StatefulWidget {
   List<Uint8List> thumblist = [];
   List<VideoDetailsBox> fullDatabaseList = [];
 
-
   @override
   State<CustomNavbar> createState() => _CustomNavbarState();
 }
 
 class _CustomNavbarState extends State<CustomNavbar> {
-  @override
-  initState() {
-    print('Checking for the app is being done ');
-  //  valueSetter();
-  //controller.getFiles();
-    super.initState();
-  }
-
   final controller = Get.put(VideoPathController());
 
-  valueSetter() {
-    widget.fullDatabaseList = box.values.toList();
-
-    for (var i = 0; i < widget.fullDatabaseList.length; i++) {
-      widget.pathList.add(widget.fullDatabaseList[i].videoFilePath);
-      widget.thumblist.add(widget.fullDatabaseList[i].thumbnailPath);
-    }
-  }
-
-
-  //int currentIndex = 0;
   int _selectedIndex = 0;
 
   final PageController _pageController = PageController();
 
   final screens = [
-    homeScreen(pathList: const [], fullDatabaseList: const [], thumblist: const [],),
-    allVideosScreen(pathList: const [], 
-    // thumblist: [], 
+    homeScreen(
+      pathList: const [],
+      fullDatabaseList: const [],
+      thumblist: const [],
     ),
-
-    PlaylistScreen(),
-    //  favoritesScreen(),
-    // watchLaterScreen(),
-    settingsPage(),
-    // MoviesPage()
+    allVideosScreen(
+      pathList: const [],
+    ),
+    FavouritesScreen(),
+    const PlaylistScreen(),
+    const settingsPage(),
   ];
 
   @override
@@ -73,15 +54,16 @@ class _CustomNavbarState extends State<CustomNavbar> {
           controller: _pageController,
           children: <Widget>[
             homeScreen(
-                pathList: widget.pathList,
-                fullDatabaseList: widget.fullDatabaseList,
-                thumblist: widget.thumblist, ),
+              pathList: widget.pathList,
+              fullDatabaseList: widget.fullDatabaseList,
+              thumblist: widget.thumblist,
+            ),
             allVideosScreen(
-                pathList: widget.pathList, 
-                // thumblist: widget.thumblist
-                ),
-
-            PlaylistScreen(),
+              pathList: widget.pathList,
+              // thumblist: widget.thumblist
+            ),
+             FavouritesScreen(),
+            const PlaylistScreen(),
             //   favoritesScreen(),
             //  watchLaterScreen(),
 
@@ -99,7 +81,7 @@ class _CustomNavbarState extends State<CustomNavbar> {
           // onTap: (index) => setState(() => _selectedIndex = index),
           onTap: _onTappedBar,
           currentIndex: _selectedIndex,
-          unselectedItemColor: Color.fromARGB(255, 141, 133, 126),
+          unselectedItemColor: const Color.fromARGB(255, 141, 133, 126),
           selectedItemColor: Theme.of(context).iconTheme.color,
           showUnselectedLabels: true,
           items: const <BottomNavigationBarItem>[
@@ -107,6 +89,8 @@ class _CustomNavbarState extends State<CustomNavbar> {
                 icon: Icon(Icons.folder_outlined), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.local_movies_outlined), label: 'All Videos'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border_outlined), label: 'Favorites'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.menu_outlined), label: 'Playlist'),
             BottomNavigationBarItem(

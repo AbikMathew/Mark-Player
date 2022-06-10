@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -97,11 +96,11 @@ class _MovieTileState extends State<MovieTile> {
         trailing: PopupMenuButton(
           itemBuilder: (BuildContext context) {
             return [
-              // PopupMenuItem(
-              //   child: DropDown(
-              //       dropDownIcon: Icons.favorite,
-              //       dropDownItem: 'Add to favourites'),
-              // ),
+              const PopupMenuItem(
+                child: DropDown(
+                    dropDownIcon: Icons.favorite,
+                    dropDownItem: 'Add to favourites'),
+              ),
               PopupMenuItem(
                   onTap: () {
                     Future.delayed(const Duration(seconds: 0),
@@ -203,7 +202,7 @@ class _MovieTileState extends State<MovieTile> {
       return const Center(
         child: Text(
           'data',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
       );
     } else {
@@ -216,7 +215,7 @@ class _MovieTileState extends State<MovieTile> {
         },
         child: PlaylistTile(
           playlistName: _playListValues[index].playlistName,
-          pListMoviePath: [],
+          pListMoviePath: const [],
           index: index,
         ),
       );

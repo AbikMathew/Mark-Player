@@ -1,25 +1,21 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mark_player/controllers/playlist_video_controller.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mark_player/custom%20widgets/drop_down.dart';
-import 'package:mark_player/custom%20widgets/playlistTile.dart';
-import 'package:mark_player/main.dart';
-import 'package:mark_player/model/model.dart';
+// import 'package:mark_player/custom%20widgets/playlistTile.dart';
+// import 'package:mark_player/main.dart';
+// import 'package:mark_player/model/model.dart';
 //import 'package:mark_player/screens/movies_page.dart';
 import 'package:mark_player/screens/video_screens.dart';
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 class PlaylistVideoTile extends StatefulWidget {
   PlaylistVideoTile(
       {Key? key,
       required this.moviePath,
-   //   required this.thumbnailPhoto,
+      //   required this.thumbnailPhoto,
       required this.index})
       : super(key: key);
 
@@ -33,17 +29,6 @@ class PlaylistVideoTile extends StatefulWidget {
 }
 
 class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
-
-  // Future thumbnailGetter(List<String> pathList) async {
-  // for (var i = 0; i < pathList.length; i++) {
-  //   Uint8List? key = ( await VideoThumbnail.thumbnailData(
-  //     video: pathList[i],
-  //     imageFormat: ImageFormat.JPEG,
-  //     maxWidth: 128,
-  //     quality: 25,
-  //   ));}}
-
-  // var key = Hive.box<IndividualPlaylistBox>('boxPindvidual');
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -68,12 +53,8 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
               color: Colors.grey.withOpacity(0.4),
               borderRadius: BorderRadius.circular(6.0),
               image: const DecorationImage(
-                fit: BoxFit.fitHeight,
-                image:  AssetImage('asset/unsplash1.jpg')
-                //  image: FileImage(File(fileKitti))))),
-                //  image: MemoryImage(thumbnailList[widget.index]),
-                //image: MemoryImage(widget.thumbnailPhoto),
-              ),
+                  fit: BoxFit.fitHeight,
+                  image: AssetImage('asset/unsplash1.jpg')),
               //
             ),
           ),
@@ -88,7 +69,7 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
                 onTap: () {
                   ctr.removeFromFav(widget.moviePath);
                   // setState(() {
-                    
+
                   // });
                   // Navigator.pop(context);
                 },
@@ -120,11 +101,12 @@ class _PlaylistVideoTileState extends State<PlaylistVideoTile> {
       ),
     );
   }
+
   PlaylistVideoController ctr = Get.find<PlaylistVideoController>();
   removeFromFav(String videoPath) {
     //boxPindvidual.values;
     final removeVideo = ctr.playlistVideoObservableBox.values
-    //final removeVideo = boxPindvidual.values
+        //final removeVideo = boxPindvidual.values
         .firstWhere((element) => element.plAddedVideoPath == videoPath);
     removeVideo.delete();
   }
